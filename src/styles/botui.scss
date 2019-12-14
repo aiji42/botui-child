@@ -1,0 +1,88 @@
+@import '~botui/build/botui-theme-default.css';
+@import '~botui/build/botui.min.css';
+
+.botui-messages-container {
+  padding: 10px 20px 60px 20px;
+}
+
+.profil>img {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #0f84fe;
+  &.agent {
+    content: url(./images/operator.jpg);
+    border-radius: 50%;
+  }
+}
+
+.botui-message {
+  &.no-background {
+    .botui-message-content {
+      background-color: #ffffff;
+    }
+    &:not(.agent + .botui-message-content) {
+      margin-left: 45px;
+    }
+  }
+  &:last-child {
+    margin-bottom: 60px;
+  }
+}
+
+.botui-message-content {
+  background-color: #0f84fe;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 12px;
+  font-size: 1.1em;
+  &.loading {
+    background-color: #0f84fe;
+  }
+  &.human {
+    color: #000000;
+    padding: 8px;
+    border-radius: 12px;
+    background-color: #eeeeee;
+    width: 80%;
+    max-width: 95%;
+  }
+}
+
+.dot {
+  width: .5rem;
+  height: .5rem;
+  border-radius: .5rem;
+  display: inline-block;
+  background-color: #ffffff;
+  &:nth-last-child(1) {
+    margin-left: .5rem;
+    animation: loading .6s .3s linear infinite;
+  }
+  &:nth-last-child(2) {
+    margin-left: .5rem;
+    animation: loading .6s .2s linear infinite;
+  }
+  &:nth-last-child(3) {
+    animation: loading .6s .1s linear infinite;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: translate(0, 0);
+    background-color: #ffffff;
+  }
+  25% {
+    transform: translate(0, -3px);
+  }
+  50% {
+    transform: translate(0, 0px);
+    background-color: #ffffff;
+  }
+  75% {
+    transform: translate(0, 3px);
+  }
+  100% {
+    transform: translate(0, 0px);
+  }
+}
