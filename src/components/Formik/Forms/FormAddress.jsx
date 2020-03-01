@@ -40,7 +40,7 @@ const form = (props) => {
       <Field component={InputStreet} name="street" title="番地・マンション名・部屋番号" />
       <ErrorMessage name="street" component={SpanErrorMessage} />
 
-      <Field component={ButtonSubmit} />
+      <Field component={ButtonSubmit} id="nextButtonInAddressForm" />
     </form>
   );
 };

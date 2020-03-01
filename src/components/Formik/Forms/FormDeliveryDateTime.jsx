@@ -19,7 +19,7 @@ const form = (props) => {
 
       <Field component={SelectDeliveryTime} name="deliveryTime" title="お届け希望時間帯" />
       <ErrorMessage name="deliveryTime" component={SpanErrorMessage} />
-      <Field component={ButtonSubmit} />
+      <Field component={ButtonSubmit} id="nextButtonInDeliveryTimingForm" />
     </form>
   );
 };

@@ -16,7 +16,7 @@ const form = (props) => {
       <Field component={InputTel} name="tel" title="電話番号(ハイフン無し)" />
       <ErrorMessage name="tel" component={SpanErrorMessage} />
 
-      <Field component={ButtonSubmit} />
+      <Field component={ButtonSubmit} id="nextButtonInTelForm" />
     </form>
   );
 };
