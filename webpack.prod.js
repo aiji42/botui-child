@@ -1,6 +1,8 @@
 import merge from 'webpack-merge'
 import common from './webpack.common.js'
 import path from 'path'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 export default merge(common, {
   mode: 'production',
@@ -11,5 +13,15 @@ export default merge(common, {
   performance: {
     maxEntrypointSize: 500000,
     maxAssetSize: 500000,
-  }
+  },
+  plugins: [
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'disabled',
+    //   generateStatsFile: true,
+    //   statsOptions: { source: false }
+    // }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    })
+  ],
 })
