@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { formPropTypes } from '../PropTypes';
@@ -15,6 +15,8 @@ const form = (props) => {
   const { handleSubmit, setStatus, status, setFieldValue, setFieldTouched } = props;
   const doFormChange = () => setStatus({ ...status, submitted: false });
 
+  const inputStreetEl = useRef(null);
+
   return (
     <form onSubmit={handleSubmit} onChange={doFormChange}>
       <Field component={InputPostalCode} name="postalCode" title="郵便番号"
@@ -26,7 +28,7 @@ const form = (props) => {
           setFieldValue('city', city + town + street);
           setFieldTouched('pref', true);
           setFieldTouched('city', true);
-          document.querySelector('[name=street]').focus();
+          inputStreetEl.current.focus();
         }}
       />
       <ErrorMessage name="postalCode" component={SpanErrorMessage} />
@@ -37,7 +39,7 @@ const form = (props) => {
       <Field component={InputCity} name="city" title="市区町村" />
       <ErrorMessage name="city" component={SpanErrorMessage} />
 
-      <Field component={InputStreet} name="street" title="番地・マンション名・部屋番号" />
+      <Field component={InputStreet} innerRef={inputStreetEl} name="street" title="番地・マンション名・部屋番号" />
       <ErrorMessage name="street" component={SpanErrorMessage} />
 
       <Field component={ButtonSubmit} id="nextButtonInAddressForm" />

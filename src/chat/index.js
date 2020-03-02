@@ -85,7 +85,7 @@ const renderComponentOnMessage = async (Content, callbackWhenRollback) => {
 
 export const sayBotComponent = async (options) => {
   const { content, whenRollback, ...option } = options;
-  await sayBot({ photo: false, type: 'html', cssClass: 'no-background', ...option });
+  await sayBot({ photo: false, type: 'html', ...option });
   await renderComponentOnMessage(content, whenRollback);
 };
 

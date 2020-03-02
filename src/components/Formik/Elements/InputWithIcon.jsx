@@ -49,11 +49,11 @@ const style = ({ form, field }) => {
   if (errors[name]) return [base, withError];
 };
 
-const InputWithIcon = ({ field, form, ...props }) => {
+const InputWithIcon = ({ field, form, innerRef, ...props }) => {
   return (
     <>
       <div css={title}>{props.title}</div>
-      <input {...field} {...props} css={style({ form, field })} />
+      <input {...field} {...props} ref={innerRef} css={style({ form, field })} />
       {!form.errors[field.name] && <i css={okIcon} className="fa fa-sm fa-check-circle" />}
     </>
   );
@@ -62,7 +62,8 @@ const InputWithIcon = ({ field, form, ...props }) => {
 InputWithIcon.propTypes = {
   field: PropTypes.shape(fieldPropTypes),
   form: PropTypes.shape(formPropTypes),
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  innerRef: PropTypes.object
 };
 
 export default InputWithIcon;

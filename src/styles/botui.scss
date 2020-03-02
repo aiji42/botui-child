@@ -16,14 +16,6 @@
 }
 
 .botui-message {
-  &.no-background {
-    .botui-message-content {
-      background-color: #ffffff;
-    }
-    &:not(.agent + .botui-message-content) {
-      margin-left: 45px;
-    }
-  }
   &:last-child {
     margin-bottom: 60px;
   }
