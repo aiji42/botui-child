@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/core';
-import { subscribe } from '../../PubSub';
+import { subscribe } from '../../pubSub';
 
 const base = css`
   background-color: #4f506a;

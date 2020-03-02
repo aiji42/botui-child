@@ -1,7 +1,7 @@
 import Postmate from 'postmate';
-import { publish, subscribe } from '../PubSub';
+import { publish, subscribe } from '../pubSub';
 import { setting } from '../dataStore';
-import { conversation } from '../conversation';
+import { start } from '../conversation';
 
 export const handshake = new Postmate.Model({
   setting: (data) => {
@@ -12,7 +12,7 @@ export const handshake = new Postmate.Model({
     publish('readyToChatStart');
   },
   publishMessage: ([topic, message]) => publish(topic, message),
-  chatStart: () => conversation('hello')
+  chatStart: () => start('hello')
 });
 
 subscribe('readyToChatStart', async () => {

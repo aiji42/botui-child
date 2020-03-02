@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import BotUI from 'botui';
-import Chat from '../../conversation/Chat';
+import { setBotui } from '../../chat';
 
 const chatBotDomId = 'botui-app';
 
 const ChatField = () => {
   useEffect(() => {
-    Chat.botui = BotUI(chatBotDomId);
+    setBotui(BotUI(chatBotDomId));
   }, []);
 
   return (

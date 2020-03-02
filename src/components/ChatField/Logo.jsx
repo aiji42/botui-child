@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/core';
 import { setting } from '../../dataStore';
-import { subscribe } from '../../PubSub';
+import { subscribe } from '../../pubSub';
 
 const style = css`
   box-sizing: content-box;

@@ -1,47 +1,17 @@
-import Chat from './Chat';
+import { sayBot, sayHuman, sayBotComponent, sayHumanComponent, relay } from '../chat';
 import * as Forms from '../components/Formik/Forms';
 import { CashLess } from '../components/CashLess';
-import { publish, subscribe } from '../PubSub';
+import { publish, subscribe } from '../pubSub';
 import { handshake } from '../handshake';
 import { dataStore, setting } from '../dataStore';
 
 const Components = { ...Forms, CashLess };
 
-export const conversation = async (startId) => {
-  let next = findCurrent({ id: startId });
-  while (next) {
-    await speak(next);
-    next = findNext(next);
-    publish('progressPercentage', progress(next));
-  }
-};
+const findCurrent = ({ id: targetId }) => setting.conversations.find(({ id }) => id === targetId);
 
-const speak = async ({ actions, id }) => {
-  for (const action of actions) {
-    const { human, type, options, function: func } = action;
-    if (type === 'message') {
-      human ? await Chat.sayHuman(options) : await Chat.sayBot(options);
-    } else if (type === 'component') {
-      if (human) await Chat.sayHumanWithComponent({ ...options, content: Components[options.content], id });
-      else await Chat.sayBotWithComponent({ ...options, content: Components[options.content], id });
-    } else if (type === 'function') {
-      Chat.relay();
-      const parent = await handshake;
-      const result = await new Promise(resolve => {
-        subscribe(func, resolve);
-        parent.emit(func, dataStore);
-      });
-      dataStore[func] = result;
-      if (action.whenReturn && action.whenReturn[result] === 'skip') break;
-    }
-  }
-};
+const findNext = ({ id }) => setting.conversations.find(({ trigger }) => trigger === id);
 
-export const findCurrent = ({ id: targetId }) => setting.conversations.find(({ id }) => id === targetId);
-
-export const findNext = ({ id }) => setting.conversations.find(({ trigger }) => trigger === id);
-
-export const progress = ({ id }) => {
+const progress = ({ id }) => {
   let convs = [];
   let next = findCurrent({ id: 'hello' });
   while (next) {
@@ -49,4 +19,44 @@ export const progress = ({ id }) => {
     next = findNext(next);
   }
   return convs.indexOf(id) / convs.length * 100;
+};
+
+export const start = async (id) => {
+  let next = findCurrent({ id });
+  while (next) {
+    publish('progressPercentage', progress(next));
+    await speak(next);
+    next = findNext(next);
+  }
+};
+
+const speak = async ({ id, actions }) => {
+  for (const action of actions) {
+    const { type } = action;
+    if (type === 'message') await speakTypeMessage(action);
+    if (type === 'component') await speakTypeComponent(id, action);
+    if (type === 'function') {
+      const { function: func, whenReturn } = action;
+      dataStore[func] = await doFunction(action);
+      if (whenReturn && whenReturn[dataStore[func]] === 'skip') break;
+    }
+  }
+};
+
+const speakTypeMessage = async ({ human, options }) => await (human ? sayHuman(options) : sayBot(options));
+
+const speakTypeComponent = async (id, { human, options }) => {
+  const content = Components[options.content];
+  const whenRollback = () => start(findNext({ id }).id);
+  if (human) await sayHumanComponent({ ...options, content, whenRollback });
+  else await sayBotComponent({ ...options, content, whenRollback });
+};
+
+const doFunction = async ({ function: func }) => {
+  relay();
+  const parent = await handshake;
+  return await new Promise(resolve => {
+    subscribe(func, resolve);
+    parent.emit(func, dataStore);
+  });
 };
