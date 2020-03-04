@@ -21,10 +21,23 @@ const progress = ({ id }) => {
   return convs.indexOf(id) / convs.length * 100;
 };
 
+const remaining = ({ id }) => {
+  let convs = [];
+  let next = findCurrent({ id: 'hello' });
+  let isOver = false;
+  while (next) {
+    !isOver && (isOver = next.id === id);
+    if (isOver) convs.push({ id: next.id, countable: !!next.countable });
+    next = findNext(next);
+  }
+  return convs.filter(({ countable }) => countable).length;
+};
+
 export const start = async (id) => {
   let next = findCurrent({ id });
   while (next) {
     publish('progressPercentage', progress(next));
+    publish('remainingNumber', remaining(next));
     await speak(next);
     next = findNext(next);
   }
@@ -38,7 +51,10 @@ const speak = async ({ id, actions }) => {
     if (type === 'function') {
       const { function: func, whenReturn } = action;
       dataStore[func] = await doFunction(action);
-      if (whenReturn && whenReturn[dataStore[func]] === 'skip') break;
+      if (!whenReturn) continue;
+      const next = whenReturn[dataStore[func]];
+      if (next === 'skip') break;
+      if (typeof next === 'object' && !!next.id) await start(next.id);
     }
   }
 };

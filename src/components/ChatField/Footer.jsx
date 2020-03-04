@@ -19,15 +19,26 @@ const progress = css`
   text-align: center;
 `;
 
+const remainingNumber = css`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: white;
+  margin-bottom: 2px;
+`;
+
 const Footer = () => {
   const [percentage, setPercentage] = useState('0%');
+  const [remaining, setRemaining] = useState(null);
   useEffect(() => {
     subscribe('progressPercentage', (message) => setPercentage(`${message}%`));
+    subscribe('remainingNumber', (message) => setRemaining(message));
   }, []);
 
   return (
     <div css={base}>
       <div css={[progress, { width: percentage }]} />
+      <div css={remainingNumber}>{![0, null].includes(remaining) && `のこり${remaining}問で完了！`}</div>
     </div>
   );
 };
