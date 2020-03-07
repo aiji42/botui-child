@@ -6,9 +6,12 @@ services:
       - 8081:8080
       - 8889:8888
     working_dir: /app
+    environment:
+      - NODE_ENV=development
+      - BUGSNAG_API_KEY=xxxxxxxxxxxxx
     volumes:
       - .:/app:cached
       - node_modules:/app/node_modules
-    command: sh -c "yarn && npm run start"
+    command: sh -c "yarn && yarn run start"
 volumes:
   node_modules:
