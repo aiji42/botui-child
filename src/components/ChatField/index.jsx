@@ -2,6 +2,7 @@ import React from 'react';
 import ChatBot from './ChatBot';
 import Header from './Header';
 import Footer from './Footer';
+import ErrorBoundary from './ErrorBoundary';
 import { css } from '@emotion/core';
 import '../../style.scss';
 
@@ -20,11 +21,13 @@ const style = css`
 
 const ChatField = () => {
   return (
-    <div css={style}>
-      <Header />
-      <ChatBot />
-      <Footer />
-    </div>
+    <ErrorBoundary>
+      <div css={style}>
+        <Header />
+        <ChatBot />
+        <Footer />
+      </div>
+    </ErrorBoundary>
   );
 };
 
