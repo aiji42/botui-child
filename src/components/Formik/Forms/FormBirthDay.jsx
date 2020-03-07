@@ -38,7 +38,7 @@ const form = (props) => {
         <Field component={SelectDay} name="birthdayDay" title="日" />
         <ErrorMessage name="birthdayDay" component={SpanErrorMessage} />
       </div>
-      <Field component={ButtonSubmit} id="nextButtonInBirthdayForm" />
+      <Field component={ButtonSubmit} />
     </form>
   );
 };

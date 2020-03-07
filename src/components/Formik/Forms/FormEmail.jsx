@@ -15,7 +15,7 @@ const form = (props) => {
     <form onSubmit={handleSubmit} onChange={handleChange}>
       <Field component={InputEmail} name="email" title="メールアドレス" />
       <ErrorMessage name="email" component={SpanErrorMessage} />
-      <Field component={ButtonSubmit} id="nextButtonInEmailForm" />
+      <Field component={ButtonSubmit} />
     </form>
   );
 };

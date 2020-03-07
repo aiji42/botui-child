@@ -55,7 +55,7 @@ const form = (props) => {
         <Field component={InputFirstNameKana} name="firstNameKana" id="firstNameKana" title="メイ" />
         <ErrorMessage name="firstNameKana" component={SpanErrorMessage} />
       </div>
-      <Field component={ButtonSubmit} id="nextButtonInNameForm" />
+      <Field component={ButtonSubmit} />
     </form>
   );
 };

@@ -16,6 +16,7 @@ export const saveStoreValue = (key, value) => {
   const storedData = store.get('botui-child') || {};
   storedData[key] = value;
   store.set('botui-child', storedData, expiration);
+  return value;
 };
 
 export const dataStore = {

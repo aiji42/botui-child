@@ -38,6 +38,7 @@ export const start = async (id) => {
   while (next) {
     publish('progressPercentage', progress(next));
     publish('remainingNumber', remaining(next));
+    datalayerPushEvent(next);
     await speak(next);
     next = findNext(next);
   }
@@ -74,5 +75,14 @@ const doFunction = async ({ function: func }) => {
   return await new Promise(resolve => {
     subscribe(func, resolve);
     parent.emit(func, dataStore);
+  });
+};
+
+const datalayerPushEvent = ({ id }) => {
+  !!window.dataLayer && window.dataLayer.push({
+    event: 'analytics',
+    eventCategory: 'botui-child',
+    eventAction: 'speak',
+    eventLabel: id
   });
 };
