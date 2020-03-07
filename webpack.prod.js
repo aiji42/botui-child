@@ -10,6 +10,7 @@ import {
 
 export default merge(common, {
   mode: 'production',
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js'
