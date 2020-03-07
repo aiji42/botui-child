@@ -151,7 +151,7 @@ const form = (props) => {
       <h3>お届先住所</h3>
       <DetailDelivery delivery={delivery} />
       <Privacy />
-      <Field component={ButtonSubmit} id="nextButtonInConfirm" >確定</Field>
+      <Field component={ButtonSubmit} >確定</Field>
     </form>
   );
 };
