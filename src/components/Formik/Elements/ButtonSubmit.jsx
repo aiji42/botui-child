@@ -8,7 +8,7 @@ const style = css`
   width: 70%;
   padding: 12px 0;
   margin: 10px auto 0px;
-  border-radius: 5px;
+  border-radius: 7px;
   border: none;
   cursor: pointer;
   color: #ffffff;

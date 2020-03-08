@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
-import { okColor, errorColor } from '../../shared/baseStyle';
+import { okColor, errorColor, baseBorderColor } from '../../shared/baseStyle';
 
 const base = css`
   padding: 8px 25px 8px 8px;
-  border: solid 2px gray;
   border-radius: 3px;
   background-color: #ffffff;
   width: 100%;
@@ -25,14 +24,14 @@ const title = css`
 `;
 
 const isOk = css`
-  border-color: ${okColor()};
+  border: solid 3px ${okColor()};
 `;
 const noTouched = css`
-  border-color: gray;
+  border: solid 2px ${baseBorderColor()};
 `;
 
 const withError = css`
-  border-color: ${errorColor()};
+  border: solid 2px ${errorColor()};
 `;
 
 const okIcon = css`

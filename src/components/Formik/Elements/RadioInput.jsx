@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
-import { okColor } from '../../shared/baseStyle';
+import { okColor, baseBorderColor } from '../../shared/baseStyle';
 
 const base = css`
   font-size: 1.1em;
-  border: solid 2px gray;
   border-radius: 3px;
   background-color: #ffffff;
   display: table;
@@ -30,7 +29,7 @@ const input = css`
 `;
 
 const unCheckedStyle = css`
-  border-color: gray;
+  border: solid 2px ${baseBorderColor()};
   background-color: #ffffff;
   i {
     color: gray;
@@ -38,7 +37,7 @@ const unCheckedStyle = css`
 `;
 
 const checkedStyle = css`
-  border-color: ${okColor()};
+  border: solid 3px ${okColor()};
   background-color: #fffdcf;
   i {
     color: ${okColor()};
