@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
+import { okColor } from '../../shared/baseStyle';
 
 const base = css`
   font-size: 1.1em;
@@ -37,10 +38,10 @@ const unCheckedStyle = css`
 `;
 
 const checkedStyle = css`
-  border-color: #0f84fe;
-  background-color: #b2fbfc;
+  border-color: ${okColor()};
+  background-color: #fffdcf;
   i {
-    color: #0f84fe;
+    color: ${okColor()};
   }
 `;
 

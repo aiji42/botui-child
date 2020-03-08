@@ -12,11 +12,18 @@ const style = css`
   border: none;
   cursor: pointer;
   color: #ffffff;
-  background-color: #EE0000;
+  background-color: #ea4e53;
   font-size: 1.1em;
   font-weight: bold;
+  border-bottom: solid 3px #a97171;
   &:disabled {
-    opacity: 0.5;
+    display: none;
+  }
+  &:active {
+    -webkit-transform: translateY(3px);
+    transform: translateY(3px);
+    border-bottom: none;
+    margin-bottom: 3px;
   }
 `;
 

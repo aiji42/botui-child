@@ -46,5 +46,6 @@ export const dataStore = {
 
 export const setting = {
   conversations: [],
-  logo: ''
+  logo: '',
+  style: {}
 };

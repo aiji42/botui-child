@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 
 const error = css`
-  color: red;
+  color: #ea4031;
   margin-top: 3px;
   display: block;
 `;

@@ -100,7 +100,7 @@ DetailDelivery.propTypes = {
   delivery: PropTypes.array.isRequired
 };
 
-const Privacy = () => {
+const Supplement = ({ content }) => {
   const style = css`
     font-size: 14px;
     text-align: center;
@@ -108,12 +108,14 @@ const Privacy = () => {
   `;
 
   return (
-    <p css={style}>
-      <a href="/entry/kiyaku.php" target="_blank">ご利用規約</a>と
-      <a href="/guide/privacy.php" target="_blank">プライバシーポリシー</a>
-      を必ずお読みください。<br />ボタンを押すことで利用規約に同意した事になります。
-    </p>
+    <>
+      {content && <p dangerouslySetInnerHTML={{ __html: content }} css={style} />}
+    </>
   );
+};
+
+Supplement.propTypes = {
+  content: PropTypes.string
 };
 
 const base = css`
@@ -141,7 +143,7 @@ const base = css`
 
 const form = (props) => {
   const { handleSubmit } = props;
-  const { pay, items, delivery } = dataStore.confirm;
+  const { pay, items, delivery, supplement } = dataStore.confirm;
 
   return (
     <form css={base} onSubmit={handleSubmit}>
@@ -150,7 +152,7 @@ const form = (props) => {
       <DetailPay pay={pay} />
       <h3>お届先住所</h3>
       <DetailDelivery delivery={delivery} />
-      <Privacy />
+      <Supplement content={supplement} />
       <Field component={ButtonSubmit} >確定</Field>
     </form>
   );

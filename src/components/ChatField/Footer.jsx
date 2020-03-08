@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/core';
 import { subscribe } from '../../pubSub';
+import { mainColor } from '../shared/baseStyle';
 
-const base = css`
-  background-color: #4f506a;
+const base = () => css`
+  background-color: ${mainColor()};
+  opacity: 0.8;
   width: 100%;
   height: 30px;
-  text-align: center;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-`;
-
-const progress = css`
-  background-color: #20224a;
-  height: 30px;
-  text-align: center;
 `;
 
 const remainingNumber = css`
@@ -36,10 +31,12 @@ const Footer = () => {
   }, []);
 
   return (
-    <div css={base}>
-      <div css={[progress, { width: percentage }]} />
+    <>
+      <div css={[base(), { opacity: 1, backgroundColor: 'white' }]} />
+      <div css={base()} />
+      <div css={[base(), { opacity: 1, width: percentage }]} />
       <div css={remainingNumber}>{![0, null].includes(remaining) && `のこり${remaining}問で完了！`}</div>
-    </div>
+    </>
   );
 };
 

@@ -70,7 +70,7 @@ const speakTypeComponent = async (id, { human, options }) => {
 };
 
 const doFunction = async ({ function: func }) => {
-  relay();
+  await relay();
   const parent = await handshake;
   return await new Promise(resolve => {
     subscribe(func, resolve);

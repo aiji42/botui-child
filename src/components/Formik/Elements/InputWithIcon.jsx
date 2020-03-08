@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
+import { okColor, errorColor } from '../../shared/baseStyle';
 
 const base = css`
   padding: 8px 25px 8px 8px;
@@ -22,14 +23,14 @@ const title = css`
 `;
 
 const isOk = css`
-  border-color: #0f84fe;
+  border-color: ${okColor()};
 `;
 const noTouched = css`
   border-color: gray;
 `;
 
 const withError = css`
-  border-color: red;
+  border-color: ${errorColor()};
 `;
 
 const okIcon = css`
@@ -37,7 +38,7 @@ const okIcon = css`
   position: relative;
   right: 5px;
   top: -28px;
-  color: #0f84fe;
+  color: ${okColor()};
   height: 0px;
 `;
 

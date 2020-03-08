@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { css } from '@emotion/core';
 import { setting } from '../../dataStore';
-import { subscribe } from '../../pubSub';
 
 const style = css`
   box-sizing: content-box;
@@ -11,12 +10,5 @@ const style = css`
   padding: 15px 0;
 `;
 
-const Logo = (props) => {
-  const [logo, setLogo] = useState('');
-  useEffect(() => {
-    subscribe('setting.logo', () => { setLogo(setting.logo); });
-  }, []);
-
-  return <img css={style} src={logo} {...props} />;
-};
+const Logo = (props) => <img css={style} src={setting.logo} {...props} />;
 export default Logo;
