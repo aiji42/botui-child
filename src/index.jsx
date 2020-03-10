@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom';
 import ChatField from './components/ChatField';
 import { handshake } from './handshake';
 
-window.dataLayer = window.dataLayer || [];
-
-const main = async () => {
+(async () => {
   const parent = await handshake;
 
   ReactDOM.render(<ChatField />, document.getElementById('root'));
 
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    stage: process.env.NODE_ENV,
+    serviceCode: parent.model.setting.serviceCode
+  });
   parent.emit('readyToStartChat');
-};
-
-main();
+})();

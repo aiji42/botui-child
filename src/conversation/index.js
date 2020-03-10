@@ -79,12 +79,11 @@ const doFunction = async ({ function: func }) => {
 };
 
 const datalayerPushEvent = ({ id }) => {
+  window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: 'analytics',
     eventCategory: 'botui-child',
     eventAction: 'speak',
     eventLabel: id,
-    serviceCode: setting.serviceCode,
-    stage: process.env.NODE_ENV
   });
 };
