@@ -1,5 +1,5 @@
 import Postmate from 'postmate';
-import { publish, subscribe } from '../pubSub';
+import { publish } from '../pubSub';
 import { start } from '../conversation';
 import { setting } from '../dataStore';
 
@@ -15,11 +15,6 @@ export const prepare = async () => {
   Object.keys(fromParent).forEach(key => {
     setting[key] = fromParent[key];
   });
-
-  subscribe('getGAClientId', (data) => {
-    window.dataLayer.push({ parentGAClientId: data });
-  });
-  parent.emit('getGAClientId');
 };
 
 export default handshake;

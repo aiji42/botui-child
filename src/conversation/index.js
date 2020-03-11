@@ -38,7 +38,7 @@ export const start = async (id) => {
   while (next) {
     publish('progressPercentage', progress(next));
     publish('remainingNumber', remaining(next));
-    datalayerPushEvent(next);
+    await datalayerPushEvent(next);
     await speak(next);
     next = findNext(next);
   }
@@ -78,8 +78,9 @@ const doFunction = async ({ function: func }) => {
   });
 };
 
-const datalayerPushEvent = ({ id }) => {
-  window.dataLayer.push({
+const datalayerPushEvent = async ({ id }) => {
+  const parent = await handshake;
+  parent.emit('dataLayerPush', {
     event: 'analytics',
     eventCategory: 'botui-child',
     eventAction: 'speak',
