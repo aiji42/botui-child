@@ -6,12 +6,11 @@ import { handshake } from './handshake';
 (async () => {
   const parent = await handshake;
 
-  ReactDOM.render(<ChatField />, document.getElementById('root'));
-
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    stage: process.env.NODE_ENV,
-    serviceCode: parent.model.setting.serviceCode
+  ReactDOM.render(<ChatField />, document.getElementById('root'), () => {
+    window.dataLayer.push({
+      stage: process.env.NODE_ENV,
+      serviceCode: parent.model.setting.serviceCode
+    });
+    parent.emit('readyToStartChat');
   });
-  parent.emit('readyToStartChat');
 })();
