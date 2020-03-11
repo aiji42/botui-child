@@ -78,8 +78,8 @@ const resolveOrRollback = (resolve, rollback) => {
 const renderComponentOnMessage = async (Content, callbackWhenRollback) => {
   await new Promise(resolve => {
     const rollback = rollbacker(chat.currentMessageIndex, callbackWhenRollback);
-    ReactDOM.render(<Content chatResolver={resolveOrRollback(resolve, rollback)} />, currentMessageDOM().querySelector('span'));
-    // scroll();
+    ReactDOM.render(<Content chatResolver={resolveOrRollback(resolve, rollback)} />, currentMessageDOM().querySelector('span'),
+      () => scroll());
   });
 };
 
