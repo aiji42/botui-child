@@ -11,7 +11,5 @@ import handshake, { prepare } from './handshake';
     serviceCode: parent.model.setting.serviceCode
   });
 
-  ReactDOM.render(<ChatField />, document.getElementById('root'), () => {
-    parent.emit('readyToStartChat');
-  });
+  ReactDOM.render(<ChatField />, document.getElementById('root'));
 })();
