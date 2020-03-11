@@ -2,7 +2,7 @@ import { sayBot, sayHuman, sayBotComponent, sayHumanComponent, relay } from '../
 import * as Forms from '../components/Formik/Forms';
 import { CashLess } from '../components/CashLess';
 import { publish, subscribe } from '../pubSub';
-import { handshake } from '../handshake';
+import handshake from '../handshake';
 import { dataStore, setting } from '../dataStore';
 
 const Components = { ...Forms, CashLess };

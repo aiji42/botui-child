@@ -3,12 +3,12 @@ import { publish, subscribe } from '../pubSub';
 import { start } from '../conversation';
 import { setting } from '../dataStore';
 
-export const handshake = new Postmate.Model({
+const handshake = new Postmate.Model({
   publishMessage: ([topic, message]) => publish(topic, message),
   startChat: () => start('hello')
 });
 
-(async () => {
+export const prepare = async () => {
   const parent = await handshake;
   const { setting: fromParent } = parent.model;
 
@@ -20,4 +20,6 @@ export const handshake = new Postmate.Model({
     window.dataLayer.push({ parentGAClientId: data });
   });
   parent.emit('getGAClientId');
-})();
+};
+
+export default handshake;
