@@ -14,6 +14,11 @@ const base = css`
   font-weight: normal;
   color: #000;
   margin-bottom: 0px;
+  box-sizing: border-box;
+  &:focus {
+    border-left-width 5px;
+    transition: all 300ms 0s ease;
+  }
 `;
 
 const title = css`
@@ -24,7 +29,7 @@ const title = css`
 `;
 
 const isOk = css`
-  border: solid 3px ${okColor()};
+  border: solid 2px ${okColor()};
 `;
 const noTouched = css`
   border: solid 2px ${baseBorderColor()};

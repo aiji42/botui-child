@@ -10,6 +10,7 @@ const base = css`
   background-color: #ffffff;
   display: table;
   width: 100%;
+  box-sizing: border-box;
   i {
     vertical-align: middle;
     display: inline-block;

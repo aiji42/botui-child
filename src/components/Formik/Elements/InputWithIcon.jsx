@@ -12,6 +12,11 @@ const base = css`
   height: 42px;
   box-sizing: border-box;
   font-size: 1.05em;
+  box-sizing: border-box;
+  &:focus {
+    border-left-width 5px;
+    transition: all 300ms 0s ease;
+  }
 `;
 
 const title = css`
@@ -22,8 +27,9 @@ const title = css`
 `;
 
 const isOk = css`
-  border: solid 3px ${okColor()};
+  border: solid 2px ${okColor()};
 `;
+
 const noTouched = css`
   border: solid 2px ${baseBorderColor()};
 `;
