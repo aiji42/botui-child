@@ -17,7 +17,6 @@ export const handshake = new Postmate.Model({
   });
 
   subscribe('getGAClientId', (data) => {
-    window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ parentGAClientId: data });
   });
   parent.emit('getGAClientId');
