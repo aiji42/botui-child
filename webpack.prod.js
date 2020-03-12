@@ -35,7 +35,9 @@ export default merge(common, {
     }),
     new BugsnagSourceMapUploaderPlugin({
       apiKey: process.env.BUGSNAG_API_KEY,
-      appVersion: process.env.COMMIT_REF
+      appVersion: process.env.COMMIT_REF,
+      uploadSource: true,
+      publicPath: '*/'
     })
   ],
 })
