@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
+import {findStoredValue} from "../../../dataStore";
 
 const style = css`
   display: block;
@@ -28,9 +29,10 @@ const style = css`
 `;
 
 const ButtonSubmit = ({ field, form, children, ...props }) => {
+  const modified = Object.keys(form.values).some(key => findStoredValue(key) !== form.values[key])
   return (
-    <button type="submit" {...field} {...props} css={style} disabled={!form.isValid || (form.status && form.status.submitted)}>
-      {!children && (form.submitCount > 0 && !(form.status && form.status.submitted) ? '変更' : '次へ')}
+    <button type="submit" {...field} {...props} css={style} disabled={!form.isValid || (form.submitCount > 0 && !modified)}>
+      {!children && (form.submitCount > 0 && modified ? '変更' : '次へ')}
       {!!children && children }
     </button>
   );
