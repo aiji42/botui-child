@@ -11,14 +11,18 @@ const findCurrent = ({ id: targetId }) => setting.conversations.find(({ id }) =>
 
 const findNext = ({ id }) => setting.conversations.find(({ trigger }) => trigger === id);
 
-const progress = ({ id }) => {
-  let convs = [];
+const conversationIds = () => {
+  let ids = [];
   let next = findCurrent({ id: 'hello' });
   while (next) {
-    convs.push(next.id);
+    ids.push(next.id);
     next = findNext(next);
   }
-  return convs.indexOf(id) / convs.length * 100;
+  return ids;
+};
+
+const progress = ({ id }) => {
+  return conversationIds().indexOf(id) / conversationIds().length * 100;
 };
 
 const remaining = ({ id }) => {
@@ -84,6 +88,6 @@ const datalayerPushEvent = async ({ id }) => {
     event: 'analytics',
     eventCategory: 'botui-child',
     eventAction: 'speak',
-    eventLabel: id,
+    eventLabel: `${('00' + conversationIds().indexOf(id)).slice(-2)}_${id}`,
   });
 };
