@@ -29,9 +29,7 @@ const style = css`
 
 const ButtonSubmit = ({ field, form, children, ...props }) => {
   return (
-    <button type="submit" {...field} {...props} css={style}
-            onClick={() => {document.activeElement.blur()}}
-            disabled={!form.isValid || (form.status && form.status.submitted)}>
+    <button type="submit" {...field} {...props} css={style} disabled={!form.isValid || (form.status && form.status.submitted)}>
       {!children && (form.submitCount > 0 && !(form.status && form.status.submitted) ? '変更' : '次へ')}
       {!!children && children }
     </button>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { formPropTypes } from '../PropTypes';
@@ -12,13 +12,15 @@ import ButtonSubmit from '../Elements/ButtonSubmit';
 import { postalCode as postalCodeApi } from '../../../apis';
 
 const form = (props) => {
-  const { handleSubmit, setStatus, status, setFieldValue, setFieldTouched } = props;
-  const doFormChange = () => setStatus({ ...status, submitted: false });
+  const { handleSubmit, setStatus, status, setFieldValue, setFieldTouched, values } = props;
+  useEffect(() => {
+    status.submitted && setStatus({ ...status, submitted: false })
+  }, [values])
 
   const inputStreetEl = useRef(null);
 
   return (
-    <form onSubmit={handleSubmit} onChange={doFormChange}>
+    <form onSubmit={handleSubmit}>
       <Field component={InputPostalCode} name="postalCode" title="郵便番号"
         onInput={async (e) => {
           const data = await postalCodeApi.search(postalCode.validation('')[''].cast(e.target.value));
