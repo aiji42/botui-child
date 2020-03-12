@@ -84,10 +84,11 @@ const doFunction = async ({ function: func }) => {
 
 const datalayerPushEvent = async ({ id }) => {
   const parent = await handshake;
+  const index = conversationIds().indexOf(id) < 0 ? 99 : conversationIds().indexOf(id);
   parent.emit('dataLayerPush', {
     event: 'analytics',
     eventCategory: 'botui-child',
     eventAction: 'speak',
-    eventLabel: `${('00' + conversationIds().indexOf(id)).slice(-2)}_${id}`,
+    eventLabel: `${('00' + index).slice(-2)}_${id}`,
   });
 };
