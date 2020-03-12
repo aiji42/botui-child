@@ -6,7 +6,7 @@ import SelectWithIcon from './SelectWithIcon';
 import { findStoredValue } from '../../../dataStore';
 
 const y = [...Array(100)].map((_, k) => new Date().getFullYear() - k);
-const years = [...y.slice(0, 35), '', ...y.slice(35)];
+const years = [...y.slice(0, 35), '', ...y.slice(35)].reverse();
 
 const SelectYeay = ({ field, form, ...props }) => {
   return (
