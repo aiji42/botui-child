@@ -8,11 +8,10 @@ import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';
 
 const form = (props) => {
-  const { handleSubmit, setStatus, status } = props;
-  const handleChange = () => setStatus({ ...status, submitted: false });
+  const { handleSubmit } = props;
 
   return (
-    <form onSubmit={handleSubmit} onChange={handleChange}>
+    <form onSubmit={handleSubmit}>
       <Field component={InputEmail} name="email" title="メールアドレス" />
       <ErrorMessage name="email" component={SpanErrorMessage} />
       <Field component={ButtonSubmit} />
@@ -27,7 +26,6 @@ form.propTypes = {
 const FormEmail = withFormik({
   mapPropsToValues: () => ({ ...email.initialValue('email') }),
   validationSchema: yup.object().shape({ ...email.validation('email') }),
-  mapPropsToStatus: () => ({ submitted: false }),
   validateOnMount: true,
   handleSubmit: (values, { props, setStatus, status }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
