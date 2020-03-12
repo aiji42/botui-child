@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { scroller } from 'react-scroll'
+import { scroller } from 'react-scroll';
 
 const icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=';
 
@@ -73,9 +73,10 @@ const renderComponentOnMessage = async (Content, callbackWhenRollback) => {
   await new Promise(resolve => {
     const rollback = rollbacker(chat.currentMessageIndex, callbackWhenRollback);
     ReactDOM.render(<Content chatResolver={resolveOrRollback(resolve, rollback)} />, currentMessageDOM().querySelector('span'), () => {
-      scroller.register('prevMessageDOM', prevMessageDOM())
-      scroller.scrollTo('prevMessageDOM', {offset: 60, smooth: true, duration: 100})
-      scroller.unregister('prevMessageDOM')
+      scroller.register('prevMessageDOM', prevMessageDOM());
+      console.log(prevMessageDOM());
+      scroller.scrollTo('prevMessageDOM', {offset: -60, smooth: true, duration: 100});
+      scroller.unregister('prevMessageDOM');
     });
   });
 };
