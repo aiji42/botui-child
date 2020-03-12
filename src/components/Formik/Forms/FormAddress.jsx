@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { formPropTypes } from '../PropTypes';
@@ -12,24 +12,26 @@ import ButtonSubmit from '../Elements/ButtonSubmit';
 import { postalCode as postalCodeApi } from '../../../apis';
 
 const form = (props) => {
-  const { handleSubmit, setFieldValue, setFieldTouched } = props;
+  const { handleSubmit, setFieldValue, values } = props;
 
   const inputStreetEl = useRef(null);
 
+  useEffect(() => {
+    const autoComplete = async () => {
+      const val = postalCode.validation('')[''].cast(values.postalCode);
+      if (val.length === 7) inputStreetEl.current.focus();
+      const data = await postalCodeApi.search(val);
+      if (!data) return;
+      const { prefcode, city, town, street } = data;
+      setFieldValue('pref', prefcode);
+      setFieldValue('city', city + town + street);
+    };
+    autoComplete();
+  }, [values.postalCode]);
+
   return (
     <form onSubmit={handleSubmit}>
-      <Field component={InputPostalCode} name="postalCode" title="郵便番号"
-        onInput={async (e) => {
-          const data = await postalCodeApi.search(postalCode.validation('')[''].cast(e.target.value));
-          if (!data) return;
-          const { prefcode, city, town, street } = data;
-          setFieldValue('pref', prefcode);
-          setFieldValue('city', city + town + street);
-          setFieldTouched('pref', true);
-          setFieldTouched('city', true);
-          inputStreetEl.current.focus();
-        }}
-      />
+      <Field component={InputPostalCode} name="postalCode" title="郵便番号"/>
       <ErrorMessage name="postalCode" component={SpanErrorMessage} />
 
       <Field component={SelectPref} name="pref" title="都道府県" />
