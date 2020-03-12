@@ -26,8 +26,7 @@ const left = css`
 const autokana = {};
 
 const form = (props) => {
-  const { handleSubmit, setStatus, status, setFieldValue } = props;
-  const handleChange = () => setStatus({ ...status, submitted: false });
+  const { handleSubmit, setFieldValue } = props;
 
   useEffect(() => {
     autokana.familyName = AutoKana.bind('#familyName', '#familyNameKana', { katakana: true });
@@ -38,7 +37,7 @@ const form = (props) => {
   const handleFirstName = () => setFieldValue('firstNameKana', autokana.firstName.getFurigana());
 
   return (
-    <form onSubmit={handleSubmit} onChange={handleChange}>
+    <form onSubmit={handleSubmit}>
       <div css={[formBlockDetailHalf, left]}>
         <Field component={InputFamilyName} name="familyName" id="familyName" title="姓" onInput={handleFamilyName} />
         <ErrorMessage name="familyName" component={SpanErrorMessage} />
@@ -77,7 +76,6 @@ const FormName = withFormik({
     ...firstName.validation('firstName'),
     ...firstNameKana.validation('firstNameKana'),
   }),
-  mapPropsToStatus: () => ({ submitted: false }),
   validateOnMount: true,
   handleSubmit: (values, { props, setStatus, status }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));

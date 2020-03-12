@@ -22,11 +22,10 @@ const left = css`
 `;
 
 const form = (props) => {
-  const { handleSubmit, setStatus, status } = props;
-  const handleChange = () => setStatus({ ...status, submitted: false });
+  const { handleSubmit } = props;
 
   return (
-    <form onSubmit={handleSubmit} onChange={handleChange}>
+    <form onSubmit={handleSubmit}>
       <Field component={SelectYear} name="birthdayYear" title="年" />
       <ErrorMessage name="birthdayYear" component={SpanErrorMessage} />
 
@@ -66,7 +65,6 @@ const FormBirthDay = withFormik({
     }
     return {};
   },
-  mapPropsToStatus: () => ({ submitted: false }),
   validateOnMount: true,
   handleSubmit: (values, { props, setStatus, status }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));

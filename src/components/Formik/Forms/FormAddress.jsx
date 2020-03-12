@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { formPropTypes } from '../PropTypes';
-import { dataStore, saveStoreValue, findStoredValue } from '../../../dataStore';
+import { dataStore, saveStoreValue } from '../../../dataStore';
 import InputPostalCode, * as postalCode from '../Elements/InputPostalCode';
 import SelectPref, * as pref from '../Elements/SelectPref';
 import InputCity, * as city from '../Elements/InputCity';
@@ -12,11 +12,7 @@ import ButtonSubmit from '../Elements/ButtonSubmit';
 import { postalCode as postalCodeApi } from '../../../apis';
 
 const form = (props) => {
-  const { handleSubmit, setStatus, status, setFieldValue, setFieldTouched, values } = props;
-  useEffect(() => {
-    if (!status.submitted) return;
-    Object.keys(values).some(key => findStoredValue(key) !== values[key]) && setStatus({ ...status, submitted: false })
-  }, [values])
+  const { handleSubmit, setFieldValue, setFieldTouched } = props;
 
   const inputStreetEl = useRef(null);
 
@@ -67,7 +63,6 @@ const FormAddress = withFormik({
     ...city.validation('city'),
     ...street.validation('street'),
   }),
-  mapPropsToStatus: () => ({ submitted: false }),
   validateOnMount: true,
   handleSubmit: async (values, { props, setFieldError, setStatus, status }) => {
     if (!(await postalCodeApi.isExisting(values.postalCode))) {

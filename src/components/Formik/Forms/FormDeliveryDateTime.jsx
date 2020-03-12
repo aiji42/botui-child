@@ -9,11 +9,10 @@ import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';
 
 const form = (props) => {
-  const { handleSubmit, setStatus, status } = props;
-  const handleChange = () => setStatus({ ...status, submitted: false });
+  const { handleSubmit } = props;
 
   return (
-    <form onSubmit={handleSubmit} onChange={handleChange}>
+    <form onSubmit={handleSubmit}>
       <Field component={SelectDeliveryDate} name="deliveryDate" title="お届け希望日" />
       <ErrorMessage name="deliveryDate" component={SpanErrorMessage} />
 
@@ -37,7 +36,6 @@ const FormDeliveryDateTime = withFormik({
     ...deliveryDate.validation('deliveryDate'),
     ...deliveryTime.validation('deliveryTime'),
   }),
-  mapPropsToStatus: () => ({ submitted: false }),
   validateOnMount: true,
   handleSubmit: (values, { props, setStatus, status }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));

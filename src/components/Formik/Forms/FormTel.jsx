@@ -8,11 +8,10 @@ import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';
 
 const form = (props) => {
-  const { handleSubmit, setStatus, status } = props;
-  const handleChange = () => setStatus({ ...status, submitted: false });
+  const { handleSubmit } = props;
 
   return (
-    <form onSubmit={handleSubmit} onChange={handleChange}>
+    <form onSubmit={handleSubmit}>
       <Field component={InputTel} name="tel" title="電話番号(ハイフン無し)" />
       <ErrorMessage name="tel" component={SpanErrorMessage} />
 
@@ -28,7 +27,6 @@ form.propTypes = {
 const FormTel = withFormik({
   mapPropsToValues: () => ({ ...tel.initialValue('tel') }),
   validationSchema: yup.object().shape({ ...tel.validation('tel') }),
-  mapPropsToStatus: () => ({ submitted: false }),
   validateOnMount: true,
   handleSubmit: (values, { props, setStatus }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
