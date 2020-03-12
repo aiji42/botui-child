@@ -17,7 +17,7 @@ const style = css`
   font-weight: bold;
   border-bottom: solid 4px #a97171;
   &:disabled {
-    display: none;
+    opacity: 0.5
   }
   &:active {
     -webkit-transform: translateY(4px);
