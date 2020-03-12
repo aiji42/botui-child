@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { formPropTypes } from '../PropTypes';
-import { dataStore, saveStoreValue } from '../../../dataStore';
+import { dataStore, saveStoreValue, findStoredValue } from '../../../dataStore';
 import InputPostalCode, * as postalCode from '../Elements/InputPostalCode';
 import SelectPref, * as pref from '../Elements/SelectPref';
 import InputCity, * as city from '../Elements/InputCity';
@@ -14,7 +14,8 @@ import { postalCode as postalCodeApi } from '../../../apis';
 const form = (props) => {
   const { handleSubmit, setStatus, status, setFieldValue, setFieldTouched, values } = props;
   useEffect(() => {
-    status.submitted && setStatus({ ...status, submitted: false })
+    if (!status.submitted) return;
+    Object.keys(values).some(key => findStoredValue(key) !== values[key]) && setStatus({ ...status, submitted: false })
   }, [values])
 
   const inputStreetEl = useRef(null);
