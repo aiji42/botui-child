@@ -30,7 +30,7 @@ const input = css`
 `;
 
 const unCheckedStyle = css`
-  border: solid 2px ${baseBorderColor()};
+  border: solid 2px ${baseBorderColor};
   background-color: #ffffff;
   i {
     color: gray;
@@ -38,10 +38,10 @@ const unCheckedStyle = css`
 `;
 
 const checkedStyle = css`
-  border: solid 3px ${okColor()};
+  border: solid 3px ${okColor};
   background-color: #fffdcf;
   i {
-    color: ${okColor()};
+    color: ${okColor};
   }
 `;
 

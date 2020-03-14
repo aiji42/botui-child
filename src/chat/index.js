@@ -74,7 +74,7 @@ const renderComponentOnMessage = async (Content, callbackWhenRollback) => {
     const rollback = rollbacker(chat.currentMessageIndex, callbackWhenRollback);
     ReactDOM.render(<Content chatResolver={resolveOrRollback(resolve, rollback)} />, currentMessageDOM().querySelector('span'), () => {
       scroller.register('prevMessageDOM', prevMessageDOM());
-      scroller.scrollTo('prevMessageDOM', {offset: -60, smooth: true, duration: 100});
+      scroller.scrollTo('prevMessageDOM', {offset: -5, smooth: true, duration: 100});
       scroller.unregister('prevMessageDOM');
     });
   });

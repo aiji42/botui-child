@@ -1,7 +1,7 @@
 import { sayBot, sayHuman, sayBotComponent, sayHumanComponent, relay } from '../chat';
 import * as Forms from '../components/Formik/Forms';
 import { CashLess } from '../components/CashLess';
-import { publish, subscribe } from '../pubSub';
+import { subscribe } from '../pubSub';
 import handshake from '../handshake';
 import { dataStore, setting } from '../dataStore';
 
@@ -38,10 +38,10 @@ const remaining = ({ id }) => {
 };
 
 export const start = async (id) => {
+  const parent = await handshake;
   let next = findCurrent({ id });
   while (next) {
-    publish('progressPercentage', progress(next));
-    publish('remainingNumber', remaining(next));
+    parent.emit('updateFooter', [progress(next), remaining(next)]);
     await datalayerPushEvent(next);
     await speak(next);
     next = findNext(next);

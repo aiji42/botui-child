@@ -29,14 +29,14 @@ const title = css`
 `;
 
 const isOk = css`
-  border: solid 2px ${okColor()};
+  border: solid 2px ${okColor};
 `;
 const noTouched = css`
-  border: solid 2px ${baseBorderColor()};
+  border: solid 2px ${baseBorderColor};
 `;
 
 const withError = css`
-  border: solid 2px ${errorColor()};
+  border: solid 2px ${errorColor};
 `;
 
 const okIcon = css`
@@ -45,7 +45,7 @@ const okIcon = css`
   right: 5px;
   top: -28px;
   height: 0px;
-  color: ${okColor()};
+  color: ${okColor};
 `;
 
 const style = ({ form, field }) => {

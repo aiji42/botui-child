@@ -2,7 +2,7 @@
 @import '~botui/build/botui.min.css';
 
 .botui-messages-container {
-  padding: 10px 20px 60px 20px;
+  padding: 0px 15px 100px 15px;
 }
 
 .profil>img {
@@ -12,12 +12,6 @@
   &.agent {
     content: url(./images/operator.jpg);
     border-radius: 50%;
-  }
-}
-
-.botui-message {
-  &:last-child {
-    margin-bottom: 60px;
   }
 }
 
