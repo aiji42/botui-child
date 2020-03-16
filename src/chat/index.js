@@ -20,9 +20,9 @@ const defaultOptionHuman = {
   content: 'massage is undefind.',
 };
 
-const currentMessageDOM = () => Array.from(document.querySelectorAll('.botui-message'))[chat.currentMessageIndex];
+const currentMessageDOM = () => document.querySelector('.botui-message:last-child');
 
-const prevMessageDOM = () => Array.from(document.querySelectorAll('.botui-message'))[chat.currentMessageIndex - 1];
+const prevMessageDOM = () => document.querySelector('.botui-message:nth-last-child(2)');
 
 export const relay = async () => {
   if (chat.relayMessageIndex !== null) return;
@@ -38,11 +38,11 @@ const stopRelay = async () => {
 };
 
 const resetMessage = async (rootIndex = 0) => {
-  await Promise.all(
-    Array(chat.currentMessageIndex).fill()
-      .map((_, k) => k + rootIndex + 1).reverse()
-      .map((id) => chat.botui.message.remove(id)),
-  );
+  let id = chat.currentMessageIndex;
+  while (id > rootIndex) {
+    await chat.botui.message.remove(id);
+    id -= 1;
+  }
   chat.currentMessageIndex = rootIndex;
 };
 
