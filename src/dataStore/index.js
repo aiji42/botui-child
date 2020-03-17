@@ -29,6 +29,7 @@ export const dataStore = {
   city: null,
   street: null,
   tel: null,
+  password: null,
   birthdayYear: null,
   birthdayMonth: null,
   birthdayDay: null,
