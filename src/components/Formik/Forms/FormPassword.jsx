@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 import { withFormik, Field, ErrorMessage } from 'formik';
 import { formPropTypes } from '../PropTypes';
 import * as yup from 'yup';
 import { dataStore, saveStoreValue } from '../../../dataStore';
-import InputTel, * as tel from '../Elements/InputTel';
+import InputPassword, * as password from '../Elements/InputPassword';
 import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';
 
@@ -12,9 +12,8 @@ const form = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field component={InputTel} name="tel" title="電話番号(ハイフン無し)" />
-      <ErrorMessage name="tel" component={SpanErrorMessage} />
-
+      <Field component={InputPassword} name="password" title="パスワード" />
+      <ErrorMessage name="password" component={SpanErrorMessage} />
       <Field component={ButtonSubmit} />
     </form>
   );
@@ -24,9 +23,9 @@ form.propTypes = {
   ...formPropTypes
 };
 
-const FormTel = withFormik({
-  mapPropsToValues: () => ({ ...tel.initialValue('tel') }),
-  validationSchema: yup.object().shape({ ...tel.validation('tel') }),
+const FormPassword = withFormik({
+  mapPropsToValues: () => ({ ...password.initialValue('password') }),
+  validationSchema: yup.object().shape({ ...password.validation('password') }),
   validateOnMount: true,
   handleSubmit: (values, { props }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
@@ -35,4 +34,4 @@ const FormTel = withFormik({
   },
 })(form);
 
-export default FormTel;
+export default FormPassword;
