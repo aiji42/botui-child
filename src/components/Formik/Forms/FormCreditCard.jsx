@@ -34,7 +34,7 @@ const validate = ({ creditCardNumber, creditCardExpiryMonth, creditCardExpiryYea
   }
 
   const errors = {};
-  if (!validCardNumber) errors.validCardNumber = '正しいカード番号を入力してください';
+  if (!validCardNumber) errors.creditCardNumber = '正しいカード番号を入力してください';
   if (!validExpiryMonth || isExpired) errors.creditCardExpiryMonth = '正しい有効期限を選択してください';
   if (!validExpiryYear || isExpired) errors.creditCardExpiryYear = '正しい有効期限を選択してください';
   if (!validCvv) errors.creditCardCvc = '正しいセキュリティコードを入力してください';
@@ -109,11 +109,12 @@ const FormBirthDay = withFormik({
     ...cardName.validation('creditCardName'),
   }),
   validateOnMount: true,
-  handleSubmit: (values, { props }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     const collectedValues = { ...values, creditCardNumber: CreditCard.sanitizeNumberString(values.creditCardNumber) };
     Object.keys(collectedValues).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(collectedValues).forEach(key => dataStore[key] = collectedValues[key]);
     props.chatResolver();
+    setSubmitting(false);
   },
 })(form);
 

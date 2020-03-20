@@ -163,8 +163,9 @@ form.propTypes = {
 };
 
 const FormConfirm = withFormik({
-  handleSubmit: (_, { props }) => {
+  handleSubmit: (_, { props, setSubmitting }) => {
     props.chatResolver();
+    setSubmitting(false);
   },
 })(form);
 

@@ -28,10 +28,11 @@ const FormGender = withFormik({
   mapPropsToValues: () => ({ ...gender.initialValue('gender') }),
   validationSchema: yup.object().shape({ ...gender.validation('gender') }),
   validateOnMount: true,
-  handleSubmit: (values, { props }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();
+    setSubmitting(false);
   },
 })(form);
 

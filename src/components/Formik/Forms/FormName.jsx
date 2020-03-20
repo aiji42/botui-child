@@ -77,10 +77,11 @@ const FormName = withFormik({
     ...firstNameKana.validation('firstNameKana'),
   }),
   validateOnMount: true,
-  handleSubmit: (values, { props }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();
+    setSubmitting(false);
   },
 })(form);
 

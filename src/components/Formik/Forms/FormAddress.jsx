@@ -74,7 +74,7 @@ const FormAddress = withFormik({
   }),
   validateOnMount: true,
   handleSubmit: async (values, { props, setFieldError }) => {
-    if (!(await validate(values, setFieldError))) return;
+    if (!(await validate(values, setFieldError))) return false;
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();

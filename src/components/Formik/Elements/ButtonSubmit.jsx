@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
-import { findStoredValue } from '../../../dataStore';
+import { findStoredValue, dataStore } from '../../../dataStore';
 
 const style = css`
   display: block;
@@ -28,15 +28,23 @@ const style = css`
   }
 `;
 
+const isSubmitedOnce = (values) => Object.keys(values).every(key => !!dataStore[key]);
+const isModified = (values) => Object.keys(values).some(key => findStoredValue(key) !== values[key]);
+
 const ButtonSubmit = ({ field, form, children, ...props }) => {
   const [modified, setModified] = useState(false);
-  const { values, isValid, submitCount } = form;
-  useEffect(() => { setModified(Object.keys(values).some(key => findStoredValue(key) !== values[key])); }, [values]);
-  useEffect(() => { setModified(false); }, [submitCount]);
+  const [submitedOnce, setSubmitedOnce] = useState(false);
+  const { values, isValid, isSubmitting } = form;
+  useEffect(() => { setModified(isModified(values)); }, [values]);
+  useEffect(() => {
+    if (isSubmitting) return;
+    setModified(false);
+    setSubmitedOnce(isSubmitedOnce(values));
+  }, [isSubmitting]);
 
   return (
-    <button type="submit" onBlur={field.handleBlur} {...props} css={style} disabled={!isValid || (submitCount > 0 && !modified)}>
-      {!children && (submitCount > 0 && modified ? '変更' : '次へ')}
+    <button type="submit" onBlur={field.handleBlur} {...props} css={style} disabled={!isValid || (submitedOnce && !modified)}>
+      {!children && (submitedOnce && modified ? '変更' : '次へ')}
       {!!children && children }
     </button>
   );

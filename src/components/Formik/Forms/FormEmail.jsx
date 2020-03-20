@@ -27,10 +27,11 @@ const FormEmail = withFormik({
   mapPropsToValues: () => ({ ...email.initialValue('email') }),
   validationSchema: yup.object().shape({ ...email.validation('email') }),
   validateOnMount: true,
-  handleSubmit: (values, { props }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();
+    setSubmitting(false);
   },
 })(form);
 

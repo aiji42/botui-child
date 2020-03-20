@@ -27,10 +27,11 @@ const FormPassword = withFormik({
   mapPropsToValues: () => ({ ...password.initialValue('password') }),
   validationSchema: yup.object().shape({ ...password.validation('password') }),
   validateOnMount: true,
-  handleSubmit: (values, { props }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();
+    setSubmitting(false);
   },
 })(form);
 
