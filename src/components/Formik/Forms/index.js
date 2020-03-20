@@ -8,3 +8,5 @@ export { default as FormMailMagazine } from './FormMailMagazine';
 export { default as FormName } from './FormName';
 export { default as FormPayment } from './FormPayment';
 export { default as FormTel } from './FormTel';
+export { default as FormCreditCard } from './FormCreditCard';
+export { default as FormPassword } from './FormPassword';

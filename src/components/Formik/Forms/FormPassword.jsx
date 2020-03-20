@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import { formPropTypes } from '../PropTypes';
 import * as yup from 'yup';

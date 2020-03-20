@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
-import {findStoredValue} from '../../../dataStore';
+import { findStoredValue } from '../../../dataStore';
 
 const style = css`
   display: block;
@@ -29,10 +29,13 @@ const style = css`
 `;
 
 const ButtonSubmit = ({ field, form, children, ...props }) => {
+  const [modified, setModified] = useState(false);
   const { values, isValid, submitCount } = form;
-  const modified = Object.keys(values).some(key => findStoredValue(key) !== values[key]);
+  useEffect(() => { setModified(Object.keys(values).some(key => findStoredValue(key) !== values[key])); }, [values]);
+  useEffect(() => { setModified(false); }, [submitCount]);
+
   return (
-    <button type="submit" {...field} {...props} css={style} disabled={!isValid || (submitCount > 0 && !modified)}>
+    <button type="submit" onBlur={field.handleBlur} {...props} css={style} disabled={!isValid || (submitCount > 0 && !modified)}>
       {!children && (submitCount > 0 && modified ? '変更' : '次へ')}
       {!!children && children }
     </button>

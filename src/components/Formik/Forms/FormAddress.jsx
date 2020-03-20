@@ -11,6 +11,13 @@ import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';
 import { postalCode as postalCodeApi } from '../../../apis';
 
+const validate = async ({ postalCode }, setFieldError) => {
+  if (await postalCodeApi.isExisting(postalCode)) return true;
+
+  setFieldError('postalCode', '存在しない郵便番号です。');
+  return false;
+};
+
 const form = (props) => {
   const { handleSubmit, setFieldValue, values } = props;
 
@@ -67,11 +74,7 @@ const FormAddress = withFormik({
   }),
   validateOnMount: true,
   handleSubmit: async (values, { props, setFieldError }) => {
-    if (!(await postalCodeApi.isExisting(values.postalCode))) {
-      setFieldError('postalCode', '存在しない郵便番号です。');
-      document.querySelector('[name=postalCode]').focus();
-      return;
-    }
+    if (!(await validate(values, setFieldError))) return;
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();
