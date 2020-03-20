@@ -13,6 +13,24 @@ import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';
 import { css } from '@emotion/core';
 
+const superNarrowField = css`
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 2px;
+  width: 31%;
+`;
+
+const narrowField = css`
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 2px;
+  width: 36%;
+`;
+
+const left = css`
+  margin-right: 2px;
+`;
+
 const validate = ({ creditCardNumber, creditCardExpiryMonth, creditCardExpiryYear, creditCardCvc }, setErrors) => {
   const {
     validCardNumber,
@@ -41,24 +59,6 @@ const validate = ({ creditCardNumber, creditCardExpiryMonth, creditCardExpiryYea
   setErrors(errors);
   return false;
 };
-
-const superNarrowField = css`
-  display: inline-block;
-  vertical-align: top;
-  margin-bottom: 2px;
-  width: 31%;
-`;
-
-const narrowField = css`
-  display: inline-block;
-  vertical-align: top;
-  margin-bottom: 2px;
-  width: 36%;
-`;
-
-const left = css`
-  margin-right: 2px;
-`;
 
 const form = (props) => {
   const { handleSubmit, values, setErrors } = props;
@@ -110,9 +110,8 @@ const FormBirthDay = withFormik({
   }),
   validateOnMount: true,
   handleSubmit: (values, { props, setSubmitting }) => {
-    const collectedValues = { ...values, creditCardNumber: CreditCard.sanitizeNumberString(values.creditCardNumber) };
-    Object.keys(collectedValues).forEach(key => saveStoreValue(key, values[key]));
-    Object.keys(collectedValues).forEach(key => dataStore[key] = collectedValues[key]);
+    Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
+    Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();
     setSubmitting(false);
   },
