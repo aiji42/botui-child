@@ -7,10 +7,9 @@ import InputWithIcon from './InputWithIcon';
 import { findStoredValue } from '../../../dataStore';
 
 const splitCardNum = (nums) => `${nums}`.split('').map((num, i) => (i > 0 && i % 4 === 0) ? ` ${num}` : num).join('');
-const noop = () => {};
 
 const InputCreditNumber = ({ field, form, ...props }) => {
-  const { setFieldValue, values } = form;
+  const { setFieldValue, setFieldTouched, values } = form;
   const [dummyNum, setDummyNum] = useState(splitCardNum(values[field.name]));
   useEffect(() => {
     const num = CreditCard.sanitizeNumberString(dummyNum);
@@ -18,11 +17,13 @@ const InputCreditNumber = ({ field, form, ...props }) => {
   }, [dummyNum]);
 
   const handleChange = (e) => setDummyNum(splitCardNum(CreditCard.sanitizeNumberString(e.target.value)));
+  const handleBlur = () => setFieldTouched(field.name, true)
 
   return (
     <>
       <InputWithIcon type="tel" autoComplete="cc-number" field={field} form={form}
-        value={dummyNum} name="cardNumberDummy" onChange={handleChange} onBlur={noop} {...props}
+        value={dummyNum} name="cardNumberDummy" onChange={handleChange} onBlur={handleBlur}
+         {...props}
       />
       <input type="hidden" {...field} {...props} />
     </>
@@ -41,7 +42,9 @@ export const validation = (name) => ({
     .required('入力してください')
     .transform((val) => CreditCard.sanitizeNumberString(val))
     .matches(/\d{14,16}/, '正しい形式で入力してください')
-    .test('credit-card-number', '正しい形式で入力してください', (val) => !!CreditCard.determineCardType(val))
+    .test('credit-card-number', '正しい形式で入力してください',
+      (val) => !!CreditCard.determineCardType(val) && CreditCard.isValidCardNumber(val, CreditCard.determineCardType(val))
+    )
 });
 
 export const initialValue = (name) => ({ [name]: findStoredValue(name, '') });
