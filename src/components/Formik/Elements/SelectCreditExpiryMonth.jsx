@@ -9,7 +9,7 @@ const SelectCreditCardExpiryMonth = ({ field, form, ...props }) => {
   return (
     <SelectWithIcon autoComplete="cc-exp-month" field={field} form={form} {...props}>
       <option value=""></option>
-      {[...Array(12)].map((_, k) => k + 1).map((month) => (<option key={month} value={month}>{`0${month}`.slice(-2)}</option>))}
+      {[...Array(12)].map((_, k) => k + 1).map((month) => (<option key={month} value={`0${month}`.slice(-2)}>{`0${month}`.slice(-2)}</option>))}
     </SelectWithIcon>
   );
 };
