@@ -17,7 +17,7 @@ const InputCreditNumber = ({ field, form, ...props }) => {
   }, [dummyNum]);
 
   const handleChange = (e) => setDummyNum(splitCardNum(CreditCard.sanitizeNumberString(e.target.value)));
-  const handleBlur = () => setFieldTouched(field.name, true)
+  const handleBlur = () => setFieldTouched(field.name, true);
 
   return (
     <>
