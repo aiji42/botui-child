@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import { formPropTypes } from '../PropTypes';
 import * as yup from 'yup';
 import { dataStore, saveStoreValue } from '../../../dataStore';
-import RadioGroupPayment, * as payment from '../Elements/RadioGroupPayment';
+import InputPassword, * as password from '../Elements/InputPassword';
 import SpanErrorMessage from '../Elements/SpanErrorMessage';
+import ButtonSubmit from '../Elements/ButtonSubmit';
 
 const form = (props) => {
-  const { handleSubmit, values } = props;
-  useEffect(() => {
-    if (values.payment) handleSubmit();
-  }, [values]);
+  const { handleSubmit } = props;
 
   return (
-    <form>
-      <Field component={RadioGroupPayment} name="payment" />
-      <ErrorMessage name="payment" component={SpanErrorMessage} />
+    <form onSubmit={handleSubmit}>
+      <Field component={InputPassword} name="password" title="パスワード" />
+      <ErrorMessage name="password" component={SpanErrorMessage} />
+      <Field component={ButtonSubmit} />
     </form>
   );
 };
@@ -24,9 +23,9 @@ form.propTypes = {
   ...formPropTypes
 };
 
-const FormPayment = withFormik({
-  mapPropsToValues: () => ({...payment.initialValue('payment')}),
-  validationSchema: yup.object().shape({...payment.validation('payment')}),
+const FormPassword = withFormik({
+  mapPropsToValues: () => ({ ...password.initialValue('password') }),
+  validationSchema: yup.object().shape({ ...password.validation('password') }),
   validateOnMount: true,
   handleSubmit: (values, { props, setSubmitting }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
@@ -36,4 +35,4 @@ const FormPayment = withFormik({
   },
 })(form);
 
-export default FormPayment;
+export default FormPassword;

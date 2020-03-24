@@ -3,7 +3,7 @@ import { withFormik, Field, ErrorMessage } from 'formik';
 import { formPropTypes } from '../PropTypes';
 import * as yup from 'yup';
 import { dataStore, saveStoreValue } from '../../../dataStore';
-import InputTel, * as tel from '../Elements/InputTel';
+import SelectPaymentTime, * as paymentTime from '../Elements/SelectPaymentTime';
 import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';
 
@@ -12,9 +12,8 @@ const form = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field component={InputTel} name="tel" title="電話番号(ハイフン無し)" />
-      <ErrorMessage name="tel" component={SpanErrorMessage} />
-
+      <Field component={SelectPaymentTime} name="paymentTime" title="支払回数" />
+      <ErrorMessage name="paymentTime" component={SpanErrorMessage} />
       <Field component={ButtonSubmit} />
     </form>
   );
@@ -24,9 +23,9 @@ form.propTypes = {
   ...formPropTypes
 };
 
-const FormTel = withFormik({
-  mapPropsToValues: () => ({ ...tel.initialValue('tel') }),
-  validationSchema: yup.object().shape({ ...tel.validation('tel') }),
+const FormPaymentTime = withFormik({
+  mapPropsToValues: () => ({...paymentTime.initialValue('paymentTime')}),
+  validationSchema: yup.object().shape({...paymentTime.validation('paymentTime')}),
   validateOnMount: true,
   handleSubmit: (values, { props, setSubmitting }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
@@ -36,4 +35,4 @@ const FormTel = withFormik({
   },
 })(form);
 
-export default FormTel;
+export default FormPaymentTime;

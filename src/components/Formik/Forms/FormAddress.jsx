@@ -66,16 +66,11 @@ const FormAddress = withFormik({
     ...street.validation('street'),
   }),
   validateOnMount: true,
-  handleSubmit: async (values, { props, setFieldError, setStatus, status }) => {
-    if (!(await postalCodeApi.isExisting(values.postalCode))) {
-      setFieldError('postalCode', '存在しない郵便番号です。');
-      document.querySelector('[name=postalCode]').focus();
-      return;
-    }
+  handleSubmit: (values, { props, setSubmitting }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
-    setStatus({ ...status, submitted: true});
     props.chatResolver();
+    setSubmitting(false);
   },
 })(form);
 
