@@ -28,7 +28,7 @@ const style = css`
   }
 `;
 
-const isSubmitedOnce = (values) => Object.keys(values).every(key => !!dataStore[key]);
+const isSubmitedOnce = (values) => Object.keys(values).every(key => dataStore[key] !== null);
 const isModified = (values) => Object.keys(values).some(key => findStoredValue(key) !== values[key]);
 
 const ButtonSubmit = ({ field, form, children, ...props }) => {
@@ -42,8 +42,10 @@ const ButtonSubmit = ({ field, form, children, ...props }) => {
     setSubmitedOnce(isSubmitedOnce(values));
   }, [isSubmitting]);
 
+  const disabled = Object.keys(values).length > 0 && (!isValid || (submitedOnce && !modified));
+
   return (
-    <button type="submit" onBlur={field.handleBlur} {...props} css={style} disabled={!isValid || (submitedOnce && !modified)}>
+    <button type="submit" onBlur={field.handleBlur} {...props} css={style} disabled={disabled}>
       {!children && (submitedOnce && modified ? '変更' : '次へ')}
       {!!children && children }
     </button>
