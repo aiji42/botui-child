@@ -45,6 +45,8 @@ export const dataStore = {
   paymentTime: null,
   paymentMethods: {},
   paymentTimeChoices: {},
+  coupon: null,
+  couponHaving: null,
   deliveryDate: null,
   deliveryDateChoices: {},
   deliveryTimeChoices: {},

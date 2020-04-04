@@ -61,6 +61,7 @@ const speak = async ({ id, actions }) => {
       if (next === 'skip') break;
       if (typeof next === 'object' && !!next.id) await start(next.id);
     }
+    if (type === 'stop') await stop();
   }
 };
 
@@ -81,6 +82,8 @@ const doFunction = async ({ function: func }) => {
     parent.emit(func, dataStore);
   });
 };
+
+const stop = async () => new Promise(() => { });
 
 const datalayerPushEvent = async ({ id }) => {
   const parent = await handshake;
