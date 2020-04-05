@@ -57,5 +57,6 @@ export const dataStore = {
 };
 
 export const setting = {
-  conversations: []
+  conversations: [],
+  validations: {}
 };
