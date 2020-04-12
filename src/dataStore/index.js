@@ -4,8 +4,10 @@ store.addPlugin(expirePlugin);
 
 const ONE_DAY_MILLI_SEC = 1000 * 24 * 60 * 60;
 
+const getDataStoreKey = () => `botui-child-${setting.serviceCode}`;
+
 export const findStoredValue = (propaty, udef = '') => {
-  const storedData = store.get('botui-child');
+  const storedData = store.get(getDataStoreKey());
   if (!storedData) return udef;
   if (propaty in storedData) return storedData[propaty];
   return udef;
@@ -13,9 +15,9 @@ export const findStoredValue = (propaty, udef = '') => {
 
 export const saveStoreValue = (key, value) => {
   const expiration = new Date().getTime() + ONE_DAY_MILLI_SEC;
-  const storedData = store.get('botui-child') || {};
+  const storedData = store.get(getDataStoreKey()) || {};
   storedData[key] = value;
-  store.set('botui-child', storedData, expiration);
+  store.set(getDataStoreKey(), storedData, expiration);
   return value;
 };
 
@@ -58,6 +60,7 @@ export const dataStore = {
 };
 
 export const setting = {
+  serviceCode: '',
   conversations: [],
   validations: {}
 };
