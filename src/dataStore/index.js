@@ -52,6 +52,7 @@ export const dataStore = {
   deliveryTimeChoices: {},
   deliveryTime: null,
   membership: null,
+  confirmed: null,
   confirm: {},
   confirmHTML: null
 };

@@ -24,6 +24,7 @@ const form = (props) => {
   return (
     <form css={base} onSubmit={handleSubmit}>
       <div dangerouslySetInnerHTML={{ __html: dataStore.confirmHTML }} />
+      <Field name="confirmed" type="hidden" />
       <Field component={ButtonSubmit} >確定</Field>
     </form>
   );
@@ -34,7 +35,9 @@ form.propTypes = {
 };
 
 const FormConfirmWithInnerHTML = withFormik({
-  handleSubmit: (_, { props, setSubmitting }) => {
+  mapPropsToValues: () => ({ confirmed: true }),
+  handleSubmit: (values, { props, setSubmitting }) => {
+    Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();
     setSubmitting(false);
   },
