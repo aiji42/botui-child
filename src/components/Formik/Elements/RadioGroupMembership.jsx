@@ -10,25 +10,25 @@ const odd = css`
   margin-bottom: 5px;
 `;
 
-const RadioGroupCouponHaving = ({ field, form, ...props }) => {
+const RadioGroupMembership = ({ field, form, ...props }) => {
   return (
     <>
       <div css={odd}>
-        <RadioInput title="持っている" id={'true'} field={field} form={form} {...props} />
+        <RadioInput title="登録する" id={'true'} field={field} form={form} {...props} />
       </div>
       <div>
-        <RadioInput title="持っていない" id={'false'} field={field} form={form} {...props} />
+        <RadioInput title="登録しない" id={'false'} field={field} form={form} {...props} />
       </div>
     </>
   );
 };
 
-RadioGroupCouponHaving.propTypes = {
+RadioGroupMembership.propTypes = {
   field: PropTypes.shape(fieldPropTypes),
   form: PropTypes.shape(formPropTypes),
 };
 
-export default RadioGroupCouponHaving;
+export default RadioGroupMembership;
 
 export const validation = (name) => ({
   [name]: yup.string().required('選択してください')

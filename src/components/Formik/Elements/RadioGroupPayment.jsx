@@ -32,6 +32,9 @@ export default RadioGroupPayment;
 
 export const validation = (name) => ({
   [name]: yup.string().required('選択してください')
+    .test('payment-on-of', '選択してください',
+      (val) => Object.keys(dataStore.paymentMethods).includes(val)
+    )
 });
 
 export const initialValue = (name) => ({ [name]: findStoredValue(name, '') });

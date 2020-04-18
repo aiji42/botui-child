@@ -153,6 +153,7 @@ const form = (props) => {
       <h3>お届先住所</h3>
       <DetailDelivery delivery={delivery} />
       <Supplement content={supplement} />
+      <Field name="confirmed" type="hidden" />
       <Field component={ButtonSubmit} >確定</Field>
     </form>
   );
@@ -163,7 +164,9 @@ form.propTypes = {
 };
 
 const FormConfirm = withFormik({
-  handleSubmit: (_, { props, setSubmitting }) => {
+  mapPropsToValues: () => ({ confirmed: true }),
+  handleSubmit: (values, { props, setSubmitting }) => {
+    Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.chatResolver();
     setSubmitting(false);
   },

@@ -65,7 +65,13 @@ const speak = async ({ id, actions }) => {
   }
 };
 
-const speakTypeMessage = async ({ human, options }) => await (human ? sayHuman(options) : sayBot(options));
+const speakTypeMessage = async ({ human, options }) => {
+  if (options.dataStoreAnnounce) {
+    options.content = dataStore[options.dataStoreAnnounce];
+    delete options.dataStoreAnnounce;
+  }
+  await (human ? sayHuman(options) : sayBot(options));
+};
 
 const speakTypeComponent = async (id, { human, options }) => {
   const content = Components[options.content];
