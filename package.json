@@ -16,7 +16,9 @@
     "postmate": "^1.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-loading": "^2.0.3",
     "react-scroll": "^1.7.16",
+    "react-transition-group": "^4.3.0",
     "store": "^2.0.12",
     "vanilla-autokana": "^1.1.6",
     "yup": "^0.28.3"
