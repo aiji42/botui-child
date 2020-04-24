@@ -16,7 +16,7 @@ const InputCreditCvc = ({ field, form, ...props }) => {
   }, [values[field.name]]);
 
   return (
-    <InputWithIcon type="number" autoComplete="cc-csc" field={field} form={form} {...props} />
+    <InputWithIcon type="text" autoComplete="cc-csc" field={field} form={form} {...props} />
   );
 };
 
