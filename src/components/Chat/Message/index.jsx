@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import {css} from '@emotion/core'
-import Bubble from '../Bubble'
-import AgentIcon from '../AgentIcon'
-import ReactLoading from 'react-loading'
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import {css} from '@emotion/core';
+import Bubble from '../Bubble';
+import AgentIcon from '../AgentIcon';
+import Loading from './Loading';
 import { CSSTransition } from 'react-transition-group';
-
-const Loading = () => {
-  const style = css`
-    height: 20px !important;
-    position: relative;
-    top: -15px;
-  `
-  return <ReactLoading type="bubbles" height={50} width={50} css={style} />
-}
+import { Element as ScrollElement } from 'react-scroll';
 
 const base = css`
   margin: 10px 0;
@@ -22,7 +14,7 @@ const base = css`
     content: "";
     clear: both;
   }
-`
+`;
 
 const easing = {
   exited: css`
@@ -35,40 +27,50 @@ const easing = {
   entered: `
     opacity: 1;
     transform: translateY(0);
-    transition: all 300ms ease-out;
+    transition: all 200ms ease-out;
   `
-}
+};
 
-const Message = ({ content, delay, human, onResolve }) => {
-  const [loading, setLoading] = useState(true)
-  const [fadeIn, setFadeIn] = useState(false)
+const Message = ({ id, content, delay, human, piton, icon, onSpoken }) => {
+  const [loading, setLoading] = useState(true);
+  const [fadeIn, setFadeIn] = useState(false);
   useEffect(() => {
-    setFadeIn(true)
-    setTimeout(() => { setLoading(false); onResolve() }, delay)
-  }, [])
+    setFadeIn(true);
+    setTimeout(() => {
+      setLoading(false);
+      onSpoken();
+    }, delay);
+  }, [content]);
 
   return (
     <CSSTransition in={fadeIn} timeout={300}>
       {(state) => (
         <div css={[base, easing[state]]}>
-          {!human && <AgentIcon />}
+          {piton && <ScrollElement name={`scrollTarget-${id}`} />}
+          {!human && icon && <AgentIcon />}
           <Bubble content={loading ? <Loading /> : content} human={human} />
         </div>
       )}
     </CSSTransition>
-  )
-}
+  );
+};
 
 Message.defaultProps = {
   delay: 1000,
   human: false,
-  onResolve: () => { }
-}
+  piton: false,
+  icon: true,
+  onSpoken: () => { }
+};
 
 Message.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  delay: PropTypes.number.isRequired,
   human: PropTypes.bool.isRequired,
-  onResolve: PropTypes.func
-}
+  piton: PropTypes.bool.isRequired,
+  icon: PropTypes.bool.isRequired,
+  onSpoken: PropTypes.func
+};
 
-export default Message
+export default Message;

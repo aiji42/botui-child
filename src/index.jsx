@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatField from './components/ChatField';
-import Field from './components/Chat/Field';
-import { prepare } from './handshake';
+import Bot from './components/Chat/Bot';
+import ErrorBoundary from './components/Bugsnag';
 
-// (async () => {
-//   await prepare();
-
-//   ReactDOM.render(<ChatField />, document.getElementById('root'));
-// })();
-ReactDOM.render(<Field />, document.getElementById('root'));
+ReactDOM.render(
+  <ErrorBoundary>
+    <Bot />
+  </ErrorBoundary>,
+  document.getElementById('root')
+);

@@ -3,6 +3,6 @@ import bugsnagClient from '../../bugsnag';
 import bugsnagReact from '@bugsnag/plugin-react';
 
 bugsnagClient.use(bugsnagReact, React);
-const ErrorBoundary = bugsnagClient.getPlugin('react');
+const Bugsnag = bugsnagClient.getPlugin('react');
 
-export default ErrorBoundary;
+export default Bugsnag;

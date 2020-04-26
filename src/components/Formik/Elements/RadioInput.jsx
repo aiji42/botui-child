@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
 import { okColor, baseBorderColor } from '../../shared/baseStyle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDotCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const base = css`
   font-size: 1.1em;
@@ -11,11 +13,6 @@ const base = css`
   display: table;
   width: 100%;
   box-sizing: border-box;
-  i {
-    vertical-align: middle;
-    display: inline-block;
-    margin: 13px;
-  }
   span {
     vertical-align: middle;
     display: inline-block;
@@ -29,20 +26,28 @@ const input = css`
   display: none;
 `;
 
+const icon = css`
+  vertical-align: middle;
+  display: inline-block;
+  margin: 13px;
+`;
+
+const unCheckedIcon = css`
+  color: gray;
+`;
+
+const checkedIcon = css`
+  color: ${okColor};
+`;
+
 const unCheckedStyle = css`
   border: solid 2px ${baseBorderColor};
   background-color: #ffffff;
-  i {
-    color: gray;
-  }
 `;
 
 const checkedStyle = css`
   border: solid 3px ${okColor};
   background-color: #fffdcf;
-  i {
-    color: ${okColor};
-  }
 `;
 
 const RadioInput = ({ field, form, id, ...props }) => {
@@ -51,7 +56,9 @@ const RadioInput = ({ field, form, id, ...props }) => {
   return (
     <div>
       <label css={[base, (checked ? checkedStyle : unCheckedStyle)]}>
-        <i className={`fa fa-lg ${checked ? 'fa-dot-circle-o' : 'fa-circle-o'}`} />
+        <div css={[icon, (checked ? checkedIcon : unCheckedIcon)]}>
+          {checked ? <FontAwesomeIcon icon={faDotCircle} /> : <FontAwesomeIcon icon={faCircle} />}
+        </div>
         <span>{props.title}</span>
         <input {...field} {...props} value={id} type="radio" css={input} checked={checked} />
       </label>
