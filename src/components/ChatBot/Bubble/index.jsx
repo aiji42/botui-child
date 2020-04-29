@@ -13,7 +13,7 @@ const base = css`
   display: inline-block;
 `;
 
-const human = css`
+const humanStyle = css`
   color: #000000;
   background-color: #eeeeee;
   width: 80%;
@@ -21,10 +21,10 @@ const human = css`
   float: right;
 `;
 
-const Bubble = ({ content, human: isHuman }) => {
+const Bubble = ({ children, human }) => {
   return (
-    <div css={isHuman ? [base, human] : base}>
-      {typeof (content) === 'string' ? <span>{content}</span> : content}
+    <div css={human ? [base, humanStyle] : base}>
+      {children}
     </div>
   );
 };
@@ -34,7 +34,7 @@ Bubble.defaultProps = {
 };
 
 Bubble.propTypes = {
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  children: PropTypes.any,
   human: PropTypes.bool.isRequired
 };
 

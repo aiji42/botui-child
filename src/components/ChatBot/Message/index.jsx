@@ -4,6 +4,7 @@ import {css} from '@emotion/core';
 import Bubble from '../Bubble';
 import AgentIcon from '../AgentIcon';
 import Loading from './Loading';
+import Content from './Content';
 import { CSSTransition } from 'react-transition-group';
 import { Element as ScrollElement } from 'react-scroll';
 
@@ -48,7 +49,9 @@ const Message = ({ id, content, delay, human, piton, icon, onSpoken }) => {
         <div css={[base, easing[state]]}>
           {piton && <ScrollElement name={`scrollTarget-${id}`} />}
           {!human && icon && <AgentIcon />}
-          <Bubble content={loading ? <Loading /> : content} human={human} />
+          <Bubble human={human}>
+            <Content content={loading ? <Loading /> : content} />
+          </Bubble>
         </div>
       )}
     </CSSTransition>
