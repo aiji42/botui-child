@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
+import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import Message from '../Message';
-import Loading from '../Message/Loading';
-import handshake, { prepare as handeshakePrepare } from '../../../handshake';
-import { setDispatch } from '../../../conversation';
+import Message from './Message';
+import Loading from './Message/Loading';
+import { conversationPrepare } from '../../conversation';
 import { animateScroll } from 'react-scroll';
 
 const base = css`
@@ -40,17 +40,12 @@ const reducer = (state, action) => {
   }
 };
 
-const Bot = () => {
+const ChatBot = ({ onReady, handshake }) => {
   const [messages, dispatch] = useReducer(reducer, []);
 
   useEffect(() => {
-    setDispatch(dispatch);
-    const readyToStartChat = async () => {
-      await handeshakePrepare();
-      const parent = await handshake;
-      parent.emit('readyToStartChat');
-    };
-    readyToStartChat();
+    conversationPrepare(dispatch, handshake);
+    onReady();
   }, []);
 
   return (
@@ -62,4 +57,9 @@ const Bot = () => {
   );
 };
 
-export default Bot;
+ChatBot.propTypes = {
+  onReady: PropTypes.func.isRequired,
+  handshake: PropTypes.object.isRequired
+};
+
+export default ChatBot;

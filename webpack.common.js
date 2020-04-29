@@ -3,12 +3,23 @@ import { EnvironmentPlugin } from 'webpack'
 
 export default {
   entry: [
-    '@babel/polyfill',
     path.resolve(__dirname, 'src', 'index.jsx')
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          name: 'vendor',
+          chunks: 'initial',
+          enforce: true
+        }
+      }
+    }
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -20,14 +31,6 @@ export default {
         exclude: /node_modules/,
         use: 'babel-loader'
       },
-      // {
-      //   test: /\.css$/,
-      //   use: ['style-loader', 'css-loader']
-      // },
-      // {
-      //   test: /\.scss$/,
-      //   use: ['style-loader', 'css-loader', 'sass-loader']
-      // },
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: 'url-loader'

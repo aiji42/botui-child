@@ -2,14 +2,16 @@ import React from 'react';
 import * as Forms from '../components/Formik/Forms';
 import { CashLess } from '../components/CashLess';
 import { subscribe } from '../pubSub';
-import handshake from '../handshake';
 import { dataStore, setting } from '../dataStore';
 import { scroller } from 'react-scroll';
 
 const Components = { ...Forms, CashLess };
 
-let messageDispatch = () => { };
-export const setDispatch = (dispatch) => messageDispatch = dispatch;
+let messageDispatch, handshake;
+export const conversationPrepare = (dispatch, hndsk) => {
+  messageDispatch = dispatch;
+  handshake = hndsk;
+};
 
 const findCurrent = ({ id: targetId }) => setting.conversations.find(({ id }) => id === targetId);
 
@@ -55,7 +57,6 @@ export const start = async (id) => {
 const speak = async ({ id, actions }) => {
   let isFirstMessage = true;
   for (const action of actions) {
-    console.log(action);
     const { type } = action;
     if (type === 'message') {
       await speakTypeMessage(id, action, isFirstMessage);
