@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatField from './components/ChatField';
-import { prepare } from './handshake';
+import ChatBot from './components/ChatBot';
+import ErrorBoundary from './components/ErrorBoundary';
+import Handshake from './components/Handshake';
 
-(async () => {
-  await prepare();
-
-  ReactDOM.render(<ChatField />, document.getElementById('root'));
-})();
+ReactDOM.render(
+  <ErrorBoundary>
+    <Handshake>
+      {({ onReady, handshake }) => <ChatBot handshake={handshake} onReady={onReady} />}
+    </Handshake>
+  </ErrorBoundary>,
+  document.getElementById('root')
+);

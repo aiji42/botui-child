@@ -10,18 +10,18 @@ const style = css`
 
 const messageStyle = `
   background-color: white;
-  margin-left: 45px;
+  margin-left: 50px;
 `;
 
-export const CashLess = ({ chatResolver, ...props }) => {
+export const CashLess = ({ onSubmited, ...props }) => {
   const imageEl = useRef(null);
   useEffect(() => {
     imageEl.current.parentElement.parentElement.style = messageStyle;
-    chatResolver();
+    onSubmited();
   }, []);
   return <img ref={imageEl} css={style} src={image} {...props} />;
 };
 
 CashLess.propTypes = {
-  chatResolver: PropTypes.func.isRequired
+  onSubmited: PropTypes.func.isRequired
 };

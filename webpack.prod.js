@@ -13,18 +13,18 @@ export default merge(common, {
   devtool: 'source-map',
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   performance: {
     maxEntrypointSize: 500000,
     maxAssetSize: 500000,
   },
   plugins: [
-    // new BundleAnalyzerPlugin({
-    //   analyzerMode: 'disabled',
-    //   generateStatsFile: true,
-    //   statsOptions: { source: false }
-    // }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled',
+      generateStatsFile: true,
+      statsOptions: { source: false }
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html')
     }),

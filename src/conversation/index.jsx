@@ -1,11 +1,17 @@
-import { sayBot, sayHuman, sayBotComponent, sayHumanComponent, relay } from '../chat';
+import React from 'react';
 import * as Forms from '../components/Formik/Forms';
 import { CashLess } from '../components/CashLess';
 import { subscribe } from '../pubSub';
-import handshake from '../handshake';
 import { dataStore, setting } from '../dataStore';
+import { scroller } from 'react-scroll';
 
 const Components = { ...Forms, CashLess };
+
+let messageDispatch, handshake;
+export const conversationPrepare = (dispatch, hndsk) => {
+  messageDispatch = dispatch;
+  handshake = hndsk;
+};
 
 const findCurrent = ({ id: targetId }) => setting.conversations.find(({ id }) => id === targetId);
 
@@ -49,9 +55,13 @@ export const start = async (id) => {
 };
 
 const speak = async ({ id, actions }) => {
+  let isFirstMessage = true;
   for (const action of actions) {
     const { type } = action;
-    if (type === 'message') await speakTypeMessage(action);
+    if (type === 'message') {
+      await speakTypeMessage(id, action, isFirstMessage);
+      isFirstMessage = false;
+    }
     if (type === 'component') await speakTypeComponent(id, action);
     if (type === 'function') {
       const { function: func, whenReturn } = action;
@@ -65,23 +75,38 @@ const speak = async ({ id, actions }) => {
   }
 };
 
-const speakTypeMessage = async ({ human, options }) => {
-  if (options.dataStoreAnnounce) {
-    options.content = dataStore[options.dataStoreAnnounce];
-    delete options.dataStoreAnnounce;
-  }
-  await (human ? sayHuman(options) : sayBot(options));
+const speakTypeMessage = async (id, { options, human }, piton) => {
+  if (options.dataStoreAnnounce) options.content = dataStore[options.dataStoreAnnounce];
+  await new Promise((resolve) => {
+    messageDispatch({ type: 'ADD', message: { id, ...options, human: !!human, piton, onSpoken: resolve } });
+  });
 };
 
-const speakTypeComponent = async (id, { human, options }) => {
-  const content = Components[options.content];
-  const whenRollback = () => start(findNext({ id }).id);
-  if (human) await sayHumanComponent({ ...options, content, whenRollback });
-  else await sayBotComponent({ ...options, content, whenRollback });
+const speakTypeComponent = async (id, { options, human }) => {
+  const rollback = () => {
+    messageDispatch({ type: 'ROLLBACK', message: { id } });
+    start(findNext({ id }).id);
+  };
+  const makeHandeleSubmited = (resolve) => {
+    let submitedCount = 0;
+    return () => {
+      submitedCount < 1 ? resolve() : rollback();
+      submitedCount += 1;
+    };
+  };
+  const Component = Components[options.content];
+  await new Promise((resolve) => {
+    messageDispatch({
+      type: 'ADD', message: {
+        id, delay: 0, ...options, content: <Component onSubmited={makeHandeleSubmited(resolve)} />, human: !!human,
+        onSpoken: () => { scroller.scrollTo(`scrollTarget-${id}`, { smooth: true, offset: -5, duration: 600 }); }
+      }
+    });
+  });
 };
 
-const doFunction = async ({ function: func }) => {
-  await relay();
+const doFunction = async ({ human, function: func }) => {
+  messageDispatch({ type: 'RELLAY', message: { human: !!human } });
   const parent = await handshake;
   return await new Promise(resolve => {
     subscribe(func, resolve);

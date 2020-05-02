@@ -40,7 +40,7 @@ const FormDeliveryDateTime = withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
-    props.chatResolver();
+    props.onSubmited();
     setSubmitting(false);
   },
 })(form);

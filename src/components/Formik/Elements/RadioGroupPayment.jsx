@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import RadioInput from './RadioInput';
-import { findStoredValue, dataStore } from '../../../dataStore';
+import { dataStore } from '../../../dataStore';
 import { css } from '@emotion/core';
 
 const margin = css`
@@ -37,4 +37,4 @@ export const validation = (name) => ({
     )
 });
 
-export const initialValue = (name) => ({ [name]: findStoredValue(name, '') });
+export const initialValue = (name) => ({ [name]: '' });

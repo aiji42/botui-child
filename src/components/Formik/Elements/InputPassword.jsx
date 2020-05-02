@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import InputWithIcon from './InputWithIcon';
 import { css } from '@emotion/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 
 const input = css`
   width: 90%;
@@ -25,7 +28,7 @@ const InputPassword = ({ field, form, ...props }) => {
         <InputWithIcon type={passwordHide ? 'password' : 'text'} autoComplete="new-password" field={field} form={form} {...props} />
       </div>
       <div css={icon} onClick={() => { setPasswordHide(!passwordHide); }}>
-        <i className={`fa fa-lg ${passwordHide ? 'fa-eye-slash' : 'fa-eye'}`} />
+        {passwordHide ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
       </div>
     </>
   );
