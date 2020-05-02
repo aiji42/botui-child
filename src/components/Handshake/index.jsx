@@ -7,7 +7,8 @@ import { setting } from '../../dataStore';
 
 const handshake = new Postmate.Model({
   publishMessage: ([topic, message]) => publish(topic, message),
-  startChat: () => start('hello')
+  startChat: () => start('hello'),
+  isReady: false,
 });
 
 const prepare = (parent) => {
@@ -17,7 +18,10 @@ const prepare = (parent) => {
   });
 };
 
-const ready = (parent) => parent.emit('readyToStartChat');
+const ready = (parent) => {
+  parent.model.isReady = true;
+  parent.emit('readyToStartChat');
+};
 
 const Handshake = ({ children }) => {
   const [parent, setParent] = useState({});
