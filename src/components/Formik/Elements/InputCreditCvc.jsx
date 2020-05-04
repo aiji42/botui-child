@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import InputWithIcon from './InputWithIcon';
 import Moji from 'moji';
-import { findStoredValue } from '../../../dataStore';
+import { dataStore } from '../../../dataStore';
 
 const onlyNum = (value) => (new Moji(`${value}`)).convert('ZE', 'HE').toString().replace(/[^0-9]/g, '');
 
@@ -33,6 +33,6 @@ const validation = (name) => ({
     .matches(/^\d{3,4}$/, '正しい形式で入力してください')
 });
 
-const initialValue = (name) => ({ [name]: findStoredValue(name, '') });
+const initialValue = (name) => ({ [name]: dataStore[name] ? dataStore[name] : '' });
 
 export { validation, initialValue };
