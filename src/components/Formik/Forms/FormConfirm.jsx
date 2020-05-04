@@ -166,6 +166,7 @@ form.propTypes = {
 const FormConfirm = withFormik({
   mapPropsToValues: () => ({ confirmed: true }),
   handleSubmit: (values, { props, setSubmitting }) => {
+    if (Object.keys(values).every(key => dataStore[key] !== null)) props.onUpdate();
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.onSubmited();
     setSubmitting(false);
