@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CreditCard from 'credit-card';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import InputWithIcon from './InputWithIcon';
-import { findStoredValue } from '../../../dataStore';
+import { dataStore } from '../../../dataStore';
 
 const splitCardNum = (nums) => `${nums}`.split('').map((num, i) => (i > 0 && i % 4 === 0) ? ` ${num}` : num).join('');
 
@@ -46,4 +46,4 @@ export const validation = (name) => ({
     )
 });
 
-export const initialValue = (name) => ({ [name]: findStoredValue(name, '') });
+export const initialValue = (name) => ({ [name]: dataStore[name] ? dataStore[name] : '' });
