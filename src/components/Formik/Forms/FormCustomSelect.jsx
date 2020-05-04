@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withFormik, Field, ErrorMessage } from 'formik';
 import { formPropTypes } from '../PropTypes';
 import * as yup from 'yup';
-import { dataStore } from '../../../dataStore';
+import { dataStore, saveStoreValue, findStoredValue } from '../../../dataStore';
 import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit'
 import SelectWithIcon from '../Elements/SelectWithIcon'
@@ -48,15 +48,21 @@ form.propTypes = {
   selects: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     options: PropTypes.object,
+    secure: PropTypes.bool,
+    optionsFromDataStore: PropTypes.bool,
+    storedName: PropTypes.string
   })).isRequired
 };
 
 const FormCustomSelect = withFormik({
-  mapPropsToValues: ({ selects }) => (selects.reduce((res, { name }) => ({ ...res, [name]: '' }), {})),
+  mapPropsToValues: ({ selects }) => (selects.reduce((res, { name, secure }) => ({ ...res, [name]: (dataStore[name] || (secure ? '' : findStoredValue(name, ''))) }), {})),
   validationSchema: ({ selects }) => yup.object().shape(selects.reduce((res, { name }) => ({ ...res, [name]: yup.string() }), {})),
   validateOnMount: true,
-  handleSubmit: (values, { props: { onSubmited, onUpdate }, setSubmitting }) => {
+  handleSubmit: (values, { props: { onSubmited, onUpdate, selects }, setSubmitting }) => {
     if (Object.keys(values).every(key => dataStore[key] != null)) onUpdate();
+    Object.keys(values).forEach(key => {
+      if (!selects.find(({ name }) => name == key).secure) saveStoreValue(key, values[key])
+    });
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     onSubmited();
     setSubmitting(false);
