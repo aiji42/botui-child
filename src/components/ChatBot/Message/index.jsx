@@ -48,7 +48,7 @@ const Message = ({ id, content, delay, human, piton, icon, onSpoken }) => {
       {(state) => (
         <div css={[base, easing[state]]}>
           {piton && <ScrollElement name={`scrollTarget-${id}`} />}
-          {!human && icon && <AgentIcon />}
+          {!human && <AgentIcon display={icon} />}
           <Bubble human={human}>
             <Content content={loading ? <Loading /> : content} />
           </Bubble>

@@ -67,6 +67,7 @@ const FormAddress = withFormik({
   }),
   validateOnMount: true,
   handleSubmit: (values, { props, setSubmitting }) => {
+    if (Object.keys(values).every(key => dataStore[key] !== null)) props.onUpdate();
     Object.keys(values).forEach(key => saveStoreValue(key, values[key]));
     Object.keys(values).forEach(key => dataStore[key] = values[key]);
     props.onSubmited();
