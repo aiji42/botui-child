@@ -11,3 +11,4 @@ export { default as FormCoupon } from './FormCoupon';
 export { default as FormPaymentTime } from './FormPaymentTime';
 export { default as FormPassword } from './FormPassword';
 export { default as FormCustomRadioGroup } from './FormCustomRadioGroup'
+export { default as FormCustomSelect } from './FormCustomSelect'
