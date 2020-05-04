@@ -42,7 +42,6 @@ form.propTypes = {
 };
 
 const FormCustomRadioGroup = withFormik({
-  mapPropsToValues: ({ name }) => ({ [name]: '' }),
   validationSchema: ({ name }) => yup.object().shape({
     [name]: yup.string().required('選択してください')
   }),
