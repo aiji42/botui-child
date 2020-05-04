@@ -47,7 +47,7 @@ form.propTypes = {
   ...formPropTypes,
   selects: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    options: PropTypes.object.isRequired,
+    options: PropTypes.object,
   })).isRequired
 };
 
