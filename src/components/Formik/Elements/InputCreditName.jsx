@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import InputWithIcon from './InputWithIcon';
-import { findStoredValue } from '../../../dataStore';
+import { dataStore } from '../../../dataStore';
 
 const InputCreditName = ({ field, form, ...props }) => {
   return (
@@ -24,4 +24,4 @@ export const validation = (name) => ({
     .matches(/^[A-Z]+\s[A-Z]+$/, '正しい形式で入力してください')
 });
 
-export const initialValue = (name) => ({ [name]: findStoredValue(name, '') });
+export const initialValue = (name) => ({ [name]: dataStore[name] ? dataStore[name] : '' });
