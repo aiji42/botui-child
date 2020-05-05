@@ -31,7 +31,6 @@ export const dataStore = {
   city: null,
   street: null,
   tel: null,
-  password: null,
   birthdayYear: null,
   birthdayMonth: null,
   birthdayDay: null,
@@ -48,6 +47,5 @@ export const dataStore = {
 
 export const setting = {
   serviceCode: '',
-  conversations: [],
-  validations: {}
+  conversations: []
 };
