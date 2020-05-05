@@ -2,7 +2,7 @@ import React from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import { formPropTypes } from '../PropTypes';
 import * as yup from 'yup';
-import { dataStore, saveStoreValue } from '../../../dataStore';
+import { dataStore } from '../../../dataStore';
 import InputPassword, * as password from '../Elements/InputPassword';
 import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';

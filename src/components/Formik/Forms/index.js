@@ -8,5 +8,5 @@ export { default as FormTel } from './FormTel';
 export { default as FormCreditCard } from './FormCreditCard';
 export { default as FormCoupon } from './FormCoupon';
 export { default as FormPassword } from './FormPassword';
-export { default as FormCustomRadioGroup } from './FormCustomRadioGroup'
-export { default as FormCustomSelect } from './FormCustomSelect'
+export { default as FormCustomRadioGroup } from './FormCustomRadioGroup';
+export { default as FormCustomSelect } from './FormCustomSelect';

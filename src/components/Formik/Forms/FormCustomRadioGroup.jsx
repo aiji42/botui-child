@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import { formPropTypes } from '../PropTypes';
 import * as yup from 'yup';
 import { dataStore } from '../../../dataStore';
 import SpanErrorMessage from '../Elements/SpanErrorMessage';
-import RadioInput from '../Elements/RadioInput'
-import { css } from '@emotion/core'
+import RadioInput from '../Elements/RadioInput';
+import { css } from '@emotion/core';
 
 const mergin = css`
   margin-top: 5px;
 `;
 
-const sanitize = (data) => Object.keys(data).map(key => ({ title: data[key], id: key }))
-
 const form = (props) => {
-  const { name, choices, choicesFromDataStore, storedName, values, handleSubmit } = props;
-  const [sanitizedChoices, setSanitizedChoices] = useState([])
+  const { name, choices, stored, storedName, values, handleSubmit } = props;
+  const [sanitizedChoices, setSanitizedChoices] = useState({});
   useEffect(() => {
     if (values[name]) handleSubmit();
   }, [values]);
   useEffect(() => {
-    setSanitizedChoices(choicesFromDataStore ? sanitize(dataStore[storedName]) : choices)
-  }, [])
+    setSanitizedChoices(stored ? dataStore[storedName] : choices);
+  }, []);
 
   return (
     <form>
       <Field name={name}>
-        {(formikField) => sanitizedChoices.map((choice, index) => (
+        {({ field, form }) => Object.keys(sanitizedChoices).map((key, index) => (
           <div key={index} css={index > 0 ? mergin : ''}>
-            <RadioInput {...choice} {...formikField} />
+            <RadioInput id={key} title={sanitizedChoices[key]} field={field} form={form} />
           </div>
         ))}
       </Field>
@@ -39,18 +37,15 @@ const form = (props) => {
 };
 
 form.defaultProps = {
-  choicesFromDataStore: false,
-  choices: []
-}
+  stored: false,
+  choices: {}
+};
 
 form.propTypes = {
   ...formPropTypes,
   name: PropTypes.string.isRequired,
-  choices: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
-  })).isRequired,
-  choicesFromDataStore: PropTypes.bool.isRequired,
+  choices: PropTypes.object.isRequired,
+  stored: PropTypes.bool.isRequired,
   storedName: PropTypes.string
 };
 
