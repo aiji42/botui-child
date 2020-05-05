@@ -45,9 +45,9 @@ const FormCustomInput = withFormik({
     { ...res, [name]: (dataStore[name] || (secure ? '' : findStoredValue(name, ''))) }
   ), {})),
   validationSchema: ({ inputs }) => yup.object().shape(inputs.reduce((res, { name, validation }) => {
-    if (!validation) return res
-    const { type, ...others } = validation
-    return { ...res, [name]: Object.keys(others).reduce((res, key) => (res[key](...others[key])), yup[type]()) }
+    if (!validation) return res;
+    const { type, ...others } = validation;
+    return { ...res, [name]: Object.keys(others).reduce((res, key) => (res[key](...others[key])), yup[type]()) };
   }, {})),
   validateOnMount: true,
   handleSubmit: (values, { props: { onSubmited, onUpdate, inputs }, setSubmitting }) => {
