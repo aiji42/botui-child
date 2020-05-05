@@ -60,7 +60,7 @@ const speakTypeMessage = async (id, { options, human }, piton) => {
 const speakTypeComponent = async (id, { options, human }, piton) => {
   const content = Components[options.content];
   await new Promise((onSubmited) => {
-    const props = { onSubmited, onUpdate: () => rollback(id) };
+    const props = { onSubmited, onUpdate: () => rollback(id), ...options.props };
     if (human) messageDispatch(action.addComponentHuman({ id, ...options, content, props, delay: 0, piton }));
     else messageDispatch(action.addComponentAgent({ id, ...options, content, props, delay: 0, piton }));
   });

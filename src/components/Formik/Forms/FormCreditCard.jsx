@@ -2,7 +2,7 @@ import React from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { formPropTypes } from '../PropTypes';
-import { dataStore, saveStoreValue } from '../../../dataStore';
+import { dataStore } from '../../../dataStore';
 import CreditCard from 'credit-card';
 import InputCreditNumber, * as cardNumber from '../Elements/InputCreditNumber';
 import InputCreditCvc, * as cardCvc from '../Elements/InputCreditCvc';

@@ -31,29 +31,15 @@ export const dataStore = {
   city: null,
   street: null,
   tel: null,
-  password: null,
   birthdayYear: null,
   birthdayMonth: null,
   birthdayDay: null,
   email: null,
-  gender: null,
-  mailmagazine: null,
-  payment: null,
   creditCardNumber: null,
   creditCardCvc: null,
   creditCardExpiryYear: null,
   creditCardExpiryMonth: null,
   creditCardName: null,
-  paymentTime: null,
-  paymentMethods: {},
-  paymentTimeChoices: {},
-  coupon: null,
-  couponHaving: null,
-  deliveryDate: null,
-  deliveryDateChoices: {},
-  deliveryTimeChoices: {},
-  deliveryTime: null,
-  membership: null,
   confirmed: null,
   confirm: {},
   confirmHTML: null
@@ -61,6 +47,5 @@ export const dataStore = {
 
 export const setting = {
   serviceCode: '',
-  conversations: [],
-  validations: {}
+  conversations: []
 };
