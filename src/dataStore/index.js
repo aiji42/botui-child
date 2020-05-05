@@ -41,7 +41,6 @@ export const dataStore = {
   creditCardExpiryYear: null,
   creditCardExpiryMonth: null,
   creditCardName: null,
-  coupon: null,
   confirmed: null,
   confirm: {},
   confirmHTML: null
