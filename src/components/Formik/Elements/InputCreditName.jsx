@@ -21,7 +21,7 @@ export default InputCreditName;
 export const validation = (name) => ({
   [name]: yup.string()
     .required('入力して下さい')
-    .matches(/^[A-Z]+\s[A-Z]+$/, '正しい形式で入力してください')
+    .matches(/^[A-Z]+\s[A-Z]+$/, '大文字半角英字と半角スペースで入力してください')
 });
 
 export const initialValue = (name) => ({ [name]: dataStore[name] ? dataStore[name] : '' });
