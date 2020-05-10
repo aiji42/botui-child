@@ -74,7 +74,7 @@ const InputWithIcon = ({ field, form, innerRef, ...props }) => {
 InputWithIcon.propTypes = {
   field: PropTypes.shape(fieldPropTypes),
   form: PropTypes.shape(formPropTypes),
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   innerRef: PropTypes.object
 };
 
