@@ -26,7 +26,8 @@ const form = (props) => {
           <Field name={name}>
             {({ field, form }) => (
               <SelectWithIcon field={field} form={form} title={title}>
-                {Object.keys(options).map((key, index) => <option key={index} value={key}>{options[key]}</option>)}
+                {Array.isArray(options) && options.map(({ value, label }, index) => <option key={index} value={value}>{label}</option>)}
+                {!Array.isArray(options) && Object.keys(options).map((key, index) => <option key={index} value={key}>{options[key]}</option>)}
               </SelectWithIcon>
             )}
           </Field>
@@ -48,7 +49,13 @@ form.propTypes = {
   selects: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     title: PropTypes.string,
-    options: PropTypes.object,
+    options: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.any,
+        label: PropTypes.string
+      }))
+    ]),
     secure: PropTypes.bool,
     stored: PropTypes.bool,
     storedName: PropTypes.string
