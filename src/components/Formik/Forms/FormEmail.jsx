@@ -12,7 +12,7 @@ const form = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field component={InputEmail} name="email" title="メールアドレス" />
+      <Field component={InputEmail} name="email" title="メールアドレス" autoFocus />
       <ErrorMessage name="email" component={SpanErrorMessage} />
       <Field component={ButtonSubmit} />
     </form>

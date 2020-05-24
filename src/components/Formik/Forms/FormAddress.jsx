@@ -31,7 +31,7 @@ const form = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field component={InputPostalCode} name="postalCode" title="郵便番号"/>
+      <Field component={InputPostalCode} name="postalCode" title="郵便番号" autoFocus />
       <ErrorMessage name="postalCode" component={SpanErrorMessage} />
 
       <Field component={SelectPref} name="pref" title="都道府県" />

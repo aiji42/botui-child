@@ -15,7 +15,7 @@ const form = (props) => {
     <form onSubmit={handleSubmit}>
       {inputs.map(({ name, title, placeholder, type }, index) => (
         <Fragment key={index}>
-          <Field name={name} component={InputWithIcon} type={type} placeholder={placeholder} title={title} />
+          <Field name={name} component={InputWithIcon} type={type} placeholder={placeholder} title={title} autoFocus={index === 0} />
           <ErrorMessage name={name} component={SpanErrorMessage} />
         </Fragment>
       ))}
@@ -25,7 +25,6 @@ const form = (props) => {
 };
 
 form.defaultProps = {
-  choicesFromDataStore: false,
   inputs: []
 };
 
@@ -36,7 +35,8 @@ form.propTypes = {
     type: PropTypes.string.isRequired,
     title: PropTypes.string,
     placeholder: PropTypes.string,
-    secure: PropTypes.bool
+    secure: PropTypes.bool,
+    validation: PropTypes.object
   })).isRequired
 };
 

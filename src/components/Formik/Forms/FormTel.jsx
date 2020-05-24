@@ -12,7 +12,7 @@ const form = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field component={InputTel} name="tel" title="電話番号(ハイフン無し)" />
+      <Field component={InputTel} name="tel" title="電話番号(ハイフン無し)" autoFocus />
       <ErrorMessage name="tel" component={SpanErrorMessage} />
 
       <Field component={ButtonSubmit} />

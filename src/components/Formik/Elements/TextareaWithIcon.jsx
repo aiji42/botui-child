@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, fieldPropTypes } from '../PropTypes';
 import { css } from '@emotion/core';
 import { okColor, errorColor, baseBorderColor } from '../../shared/baseStyle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const base = css`
   padding: 8px 25px 8px 8px;
@@ -57,18 +58,19 @@ const style = ({ form, field }) => {
   if (errors[name]) return [base, withError];
 };
 
-const InputWithIcon = ({ field, form, innerRef, autoFocus, ...props }) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (!autoFocus) return;
-    if (innerRef) innerRef.current, focus();
-    else ref.current.focus();
-  }, []);
+const TextareaWithIcon = ({ field, form, autoFocus, ...props }) => {
+  const [minRows, setMinRows] = useState(0);
 
   return (
     <>
       <div css={title}>{props.title}</div>
-      <input {...field} {...props} ref={innerRef || ref} css={style({ form, field })} />
+      <TextareaAutosize {...field} {...props} minRows={minRows} css={style({ form, field })} autoFocus={autoFocus}
+        onFocus={() => setMinRows(2)}
+        onBlur={(e) => {
+          field.onBlur(e);
+          setMinRows(0);
+        }}
+      />
       {!form.errors[field.name] &&
         <div css={okIcon}>
           <FontAwesomeIcon icon={faCheckCircle} />
@@ -78,16 +80,15 @@ const InputWithIcon = ({ field, form, innerRef, autoFocus, ...props }) => {
   );
 };
 
-InputWithIcon.defaultProps = {
+TextareaWithIcon.defaultProps = {
   autoFocus: false
 };
 
-InputWithIcon.propTypes = {
+TextareaWithIcon.propTypes = {
   field: PropTypes.shape(fieldPropTypes),
   form: PropTypes.shape(formPropTypes),
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
-  innerRef: PropTypes.object,
   autoFocus: PropTypes.bool.isRequired
 };
 
-export default InputWithIcon;
+export default TextareaWithIcon;

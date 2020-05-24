@@ -5,6 +5,7 @@ import { css } from '@emotion/core';
 import { okColor, errorColor, baseBorderColor } from '../../shared/baseStyle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import AutoKana from 'react-auto-kana';
 
 const base = css`
   padding: 8px 25px 8px 8px;
@@ -57,7 +58,7 @@ const style = ({ form, field }) => {
   if (errors[name]) return [base, withError];
 };
 
-const InputWithIcon = ({ field, form, innerRef, autoFocus, ...props }) => {
+const InputWithIconIncludeAutoKana = ({ field, form, innerRef, autoFocus, onUpdate, ...props }) => {
   const ref = useRef(null);
   useEffect(() => {
     if (!autoFocus) return;
@@ -68,7 +69,7 @@ const InputWithIcon = ({ field, form, innerRef, autoFocus, ...props }) => {
   return (
     <>
       <div css={title}>{props.title}</div>
-      <input {...field} {...props} ref={innerRef || ref} css={style({ form, field })} />
+      <AutoKana {...field} {...props} ref={innerRef || ref} css={style({ form, field })} onUpdate={onUpdate} />
       {!form.errors[field.name] &&
         <div css={okIcon}>
           <FontAwesomeIcon icon={faCheckCircle} />
@@ -78,16 +79,17 @@ const InputWithIcon = ({ field, form, innerRef, autoFocus, ...props }) => {
   );
 };
 
-InputWithIcon.defaultProps = {
+InputWithIconIncludeAutoKana.defaultProps = {
   autoFocus: false
 };
 
-InputWithIcon.propTypes = {
+InputWithIconIncludeAutoKana.propTypes = {
   field: PropTypes.shape(fieldPropTypes),
   form: PropTypes.shape(formPropTypes),
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   innerRef: PropTypes.object,
-  autoFocus: PropTypes.bool.isRequired
+  autoFocus: PropTypes.bool.isRequired,
+  onUpdate: PropTypes.func.isRequired
 };
 
-export default InputWithIcon;
+export default InputWithIconIncludeAutoKana;

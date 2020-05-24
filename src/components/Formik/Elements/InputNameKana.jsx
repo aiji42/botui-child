@@ -8,9 +8,9 @@ import { findStoredValue } from '../../../dataStore';
 
 const toKatakana = (value) => (new Moji(value)).convert('HG', 'KK').toString().replace(/[^ァ-ン]/g, '');
 
-const InputFamilyNameKana = ({ field, form, ...props }) => {
+const InputNameKana = ({ field, form, ...props }) => {
   return (
-    <InputWithIcon type="text" placeholder="ヤマダ" field={field} form={form} {...props}
+    <InputWithIcon type="text" field={field} form={form} {...props}
       onBlur={(e) => {
         form.setFieldValue(field.name, toKatakana(e.target.value));
         field.onBlur(e);
@@ -19,12 +19,12 @@ const InputFamilyNameKana = ({ field, form, ...props }) => {
   );
 };
 
-InputFamilyNameKana.propTypes = {
+InputNameKana.propTypes = {
   field: PropTypes.shape(fieldPropTypes),
   form: PropTypes.shape(formPropTypes),
 };
 
-export default InputFamilyNameKana;
+export default InputNameKana;
 
 const validation = (name) => ({
   [name]: yup.string()
