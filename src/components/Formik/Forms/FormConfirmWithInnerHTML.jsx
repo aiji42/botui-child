@@ -23,9 +23,11 @@ const form = (props) => {
 
   return (
     <form css={base} onSubmit={handleSubmit}>
+      <Field component={ButtonSubmit} />
+      <p css={{ textAlign: 'center', marginTop: 5 }}>下記の内容にお間違いなければボタンを押してください。</p>
       <div dangerouslySetInnerHTML={{ __html: dataStore.confirmHTML }} />
       <Field name="confirmed" type="hidden" />
-      <Field component={ButtonSubmit} >確定</Field>
+      <Field component={ButtonSubmit} />
     </form>
   );
 };

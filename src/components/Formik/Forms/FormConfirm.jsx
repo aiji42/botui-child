@@ -147,6 +147,8 @@ const form = (props) => {
 
   return (
     <form css={base} onSubmit={handleSubmit}>
+      <Field component={ButtonSubmit} />
+      <p css={{ textAlign: 'center', marginTop: 5 }}>下記の内容にお間違いなければボタンを押してください。</p>
       <h3>ご購入内容</h3>
       <DetailCart items={items} />
       <DetailPay pay={pay} />
@@ -154,7 +156,7 @@ const form = (props) => {
       <DetailDelivery delivery={delivery} />
       <Supplement content={supplement} />
       <Field name="confirmed" type="hidden" />
-      <Field component={ButtonSubmit} >確定</Field>
+      <Field component={ButtonSubmit} />
     </form>
   );
 };
