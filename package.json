@@ -13,6 +13,7 @@
     "change-case": "^4.1.1",
     "credit-card": "^3.0.2",
     "formik": "^2.1.4",
+    "historykana": "^1.0.4",
     "libphonenumber-js": "^1.7.51",
     "moji": "^0.5.1",
     "postmate": "^1.5.2",
@@ -20,9 +21,9 @@
     "react-dom": "^16.13.1",
     "react-loading": "^2.0.3",
     "react-scroll": "^1.7.16",
+    "react-textarea-autosize": "^8.0.0",
     "react-transition-group": "^4.3.0",
     "store": "^2.0.12",
-    "vanilla-autokana": "^1.1.6",
     "yup": "^0.28.4"
   },
   "devDependencies": {

@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withFormik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { formPropTypes } from '../PropTypes';
 import { dataStore, saveStoreValue } from '../../../dataStore';
-import InputFamilyName, * as familyName from '../Elements/InputFamilyName';
-import InputFamilyNameKana, * as familyNameKana from '../Elements/InputFamilyNameKana';
-import InputFirstName, * as firstName from '../Elements/InputFirstName';
-import InputFirstNameKana, * as firstNameKana from '../Elements/InputFirstNameKana';
+import InputName, * as inputName from '../Elements/InputName';
+import InputNameKana, * as inputNameKana from '../Elements/InputNameKana';
 import SpanErrorMessage from '../Elements/SpanErrorMessage';
 import ButtonSubmit from '../Elements/ButtonSubmit';
-import * as AutoKana from 'vanilla-autokana';
 import { css } from '@emotion/core';
+import historykana from 'historykana';
+import Moji from 'moji';
 
 const formBlockDetailHalf = css`
   display: inline-block;
@@ -23,35 +22,37 @@ const left = css`
   margin-right: 3px;
 `;
 
-const autokana = {};
+const kanaHistories = {};
+const refrectToKana = (fieldName, setFieldValue) => (e) => {
+  if (!kanaHistories[fieldName]) kanaHistories[fieldName] = [];
+  if (e.target.value) kanaHistories[fieldName].push(e.target.value);
+  else kanaHistories[fieldName] = [];
+  setFieldValue(fieldName, new Moji(historykana(kanaHistories[fieldName])).convert('HG', 'KK').toString());
+};
 
 const form = (props) => {
   const { handleSubmit, setFieldValue } = props;
 
-  useEffect(() => {
-    autokana.familyName = AutoKana.bind('#familyName', '#familyNameKana', { katakana: true });
-    autokana.firstName = AutoKana.bind('#firstName', '#firstNameKana', { katakana: true });
-  }, []);
-
-  const handleFamilyName = () => setFieldValue('familyNameKana', autokana.familyName.getFurigana());
-  const handleFirstName = () => setFieldValue('firstNameKana', autokana.firstName.getFurigana());
-
   return (
     <form onSubmit={handleSubmit}>
       <div css={[formBlockDetailHalf, left]}>
-        <Field component={InputFamilyName} name="familyName" id="familyName" title="姓" onInput={handleFamilyName} />
+        <Field component={InputName} name="familyName" placeholder="山田" title="姓" autoFocus
+          onKeyUp={refrectToKana('familyNameKana', setFieldValue)}
+        />
         <ErrorMessage name="familyName" component={SpanErrorMessage} />
       </div>
       <div css={formBlockDetailHalf}>
-        <Field component={InputFirstName} name="firstName" id="firstName" title="名" onInput={handleFirstName} />
+        <Field component={InputName} name="firstName" placeholder="太郎" title="名"
+          onKeyUp={refrectToKana('firstNameKana', setFieldValue)}
+        />
         <ErrorMessage name="firstName" component={SpanErrorMessage} />
       </div>
       <div css={[formBlockDetailHalf, left]}>
-        <Field component={InputFamilyNameKana} name="familyNameKana" id="familyNameKana" title="セイ" />
+        <Field component={InputNameKana} name="familyNameKana" placeholder="ヤマダ" title="セイ" />
         <ErrorMessage name="familyNameKana" component={SpanErrorMessage} />
       </div>
       <div css={formBlockDetailHalf}>
-        <Field component={InputFirstNameKana} name="firstNameKana" id="firstNameKana" title="メイ" />
+        <Field component={InputNameKana} name="firstNameKana" placeholder="タロウ" title="メイ" />
         <ErrorMessage name="firstNameKana" component={SpanErrorMessage} />
       </div>
       <Field component={ButtonSubmit} />
@@ -65,16 +66,16 @@ form.propTypes = {
 
 const FormName = withFormik({
   mapPropsToValues: () => ({
-    ...familyName.initialValue('familyName'),
-    ...familyNameKana.initialValue('familyNameKana'),
-    ...firstName.initialValue('firstName'),
-    ...firstNameKana.initialValue('firstNameKana'),
+    ...inputName.initialValue('familyName'),
+    ...inputNameKana.initialValue('familyNameKana'),
+    ...inputName.initialValue('firstName'),
+    ...inputNameKana.initialValue('firstNameKana'),
   }),
   validationSchema: yup.object().shape({
-    ...familyName.validation('familyName'),
-    ...familyNameKana.validation('familyNameKana'),
-    ...firstName.validation('firstName'),
-    ...firstNameKana.validation('firstNameKana'),
+    ...inputName.validation('familyName'),
+    ...inputNameKana.validation('familyNameKana'),
+    ...inputName.validation('firstName'),
+    ...inputNameKana.validation('firstNameKana'),
   }),
   validateOnMount: true,
   handleSubmit: (values, { props, setSubmitting }) => {

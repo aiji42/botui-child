@@ -80,7 +80,7 @@ const form = (props) => {
         </div>
       }
 
-      <Field component={InputCreditNumber} name="creditCardNumber" title="クレジットカード番号" />
+      <Field component={InputCreditNumber} name="creditCardNumber" title="クレジットカード番号" autoFocus />
       <ErrorMessage name="creditCardNumber" component={SpanErrorMessage} />
 
       <Field component={InputCreditName} name="creditCardName" title="名前" />

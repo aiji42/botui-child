@@ -8,7 +8,7 @@ import { dataStore } from '../../../dataStore';
 
 const splitCardNum = (nums) => `${nums}`.split('').map((num, i) => (i > 0 && i % 4 === 0) ? ` ${num}` : num).join('');
 
-const InputCreditNumber = ({ field, form, ...props }) => {
+const InputCreditNumber = ({ field, form, innerRef, ...props }) => {
   const { setFieldValue, setFieldTouched, values } = form;
   const [dummyNum, setDummyNum] = useState(splitCardNum(values[field.name]));
   useEffect(() => {
@@ -22,7 +22,7 @@ const InputCreditNumber = ({ field, form, ...props }) => {
   return (
     <>
       <InputWithIcon type="tel" autoComplete="cc-number" field={field} form={form}
-        value={dummyNum} name="cardNumberDummy" onChange={handleChange} onBlur={handleBlur} {...props}
+        value={dummyNum} name="cardNumberDummy" onChange={handleChange} onBlur={handleBlur} innerRef={innerRef} {...props}
       />
       <input type="hidden" {...field} {...props} />
     </>
@@ -32,6 +32,7 @@ const InputCreditNumber = ({ field, form, ...props }) => {
 InputCreditNumber.propTypes = {
   field: PropTypes.shape(fieldPropTypes),
   form: PropTypes.shape(formPropTypes),
+  innerRef: PropTypes.object
 };
 
 export default InputCreditNumber;
