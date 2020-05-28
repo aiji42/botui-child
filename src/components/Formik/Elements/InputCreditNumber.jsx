@@ -21,7 +21,7 @@ const InputCreditNumber = ({ field, form, innerRef, ...props }) => {
 
   return (
     <>
-      <InputWithIcon type="tel" autoComplete="cc-number" field={field} form={form}
+      <InputWithIcon type="tel" autoComplete="cc-number" field={field} form={form} placeholder="0123 4567 8901 2345"
         value={dummyNum} name="cardNumberDummy" onChange={handleChange} onBlur={handleBlur} innerRef={innerRef} {...props}
       />
       <input type="hidden" {...field} {...props} />

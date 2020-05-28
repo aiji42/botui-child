@@ -10,7 +10,7 @@ const years = [...Array(15)].map((_, k) => new Date().getFullYear() + k);
 const SelectCreditExpiryYear = ({ field, form, ...props }) => {
   return (
     <SelectWithIcon autoComplete="cc-exp-year" field={field} form={form} {...props}>
-      <option value=""></option>
+      <option value="">YY</option>
       {years.map((year) => (<option key={year} value={year}>{`${year}`.slice(-2)}</option>))}
     </SelectWithIcon>
   );
