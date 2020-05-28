@@ -7,7 +7,7 @@ import { dataStore } from '../../../dataStore';
 
 const InputCreditName = ({ field, form, ...props }) => {
   return (
-    <InputWithIcon type="text" autoComplete="cc-name" field={field} form={form} {...props} />
+    <InputWithIcon type="text" autoComplete="cc-name" field={field} form={form} {...props} placeholder="TARO YAMADA" />
   );
 };
 
@@ -19,9 +19,7 @@ InputCreditName.propTypes = {
 export default InputCreditName;
 
 export const validation = (name) => ({
-  [name]: yup.string()
-    .required('入力して下さい')
-    .matches(/^[A-Z]+\s[A-Z]+$/, '大文字半角英字と半角スペースで入力してください')
+  [name]: yup.string().required('入力して下さい')
 });
 
 export const initialValue = (name) => ({ [name]: dataStore[name] ? dataStore[name] : '' });

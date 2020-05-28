@@ -30,6 +30,10 @@ const title = css`
   padding-bottom: 4px;
 `;
 
+const noValue = css`
+  color: rgb(0,0,0,0.54);
+`;
+
 const isOk = css`
   border: solid 2px ${okColor};
 `;
@@ -51,11 +55,13 @@ const okIcon = css`
 `;
 
 const style = ({ form, field }) => {
-  const { name } = field;
+  const styles = [base];
+  const { name, value } = field;
   const { errors, touched, initialValues } = form;
-  if (!errors[name]) return [base, isOk];
-  if (!touched[name] && errors[name] && initialValues[name].length === 0) return [base, noTouched];
-  if (errors[name]) return [base, withError];
+  if (!value) styles.push(noValue);
+  if (!errors[name]) return [...styles, isOk];
+  if (!touched[name] && errors[name] && initialValues[name].length === 0) return [...styles, noTouched];
+  if (errors[name]) return [...styles, withError];
 };
 
 const SelectWithIcon = ({ field, form, children, ...props }) => {
