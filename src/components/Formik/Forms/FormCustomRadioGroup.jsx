@@ -19,6 +19,7 @@ const form = (props) => {
     if (values[name]) handleSubmit();
   }, [values]);
   useEffect(() => {
+    Object.keys(values).forEach(key => dataStore[key] = null);
     setSanitizedChoices(stored ? dataStore[storedName] : choices);
   }, []);
 

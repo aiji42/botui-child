@@ -31,7 +31,7 @@ const title = css`
 `;
 
 const noValue = css`
-  color: rgb(0,0,0,0.54);
+  color: rgb(0,0,0,0.5);
 `;
 
 const isOk = css`
@@ -58,7 +58,7 @@ const style = ({ form, field }) => {
   const styles = [base];
   const { name, value } = field;
   const { errors, touched, initialValues } = form;
-  if (!value) styles.push(noValue);
+  if (!value && errors[name]) styles.push(noValue);
   if (!errors[name]) return [...styles, isOk];
   if (!touched[name] && errors[name] && initialValues[name].length === 0) return [...styles, noTouched];
   if (errors[name]) return [...styles, withError];
