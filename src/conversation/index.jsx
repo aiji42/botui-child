@@ -1,10 +1,7 @@
-import * as Forms from '../components/Formik/Forms';
-import { CashLess } from '../components/CashLess';
+import * as Components from '../components/Formik/Forms';
 import { subscribe } from '../pubSub';
 import { dataStore, setting } from '../dataStore';
 import * as action from '../components/ChatBot/action';
-
-const Components = { ...Forms, CashLess };
 
 let messageDispatch, handshake;
 export const conversationPrepare = (dispatch, hndsk) => {
