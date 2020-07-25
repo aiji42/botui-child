@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostRobotContext } from '../../hooks/PostRobot';
+import { PostRobotContext } from 'react-hook-post-robot';
 
 const Communicator = (props) => {
   return (

@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 import { messenger } from './reducer';
-import { usePostRobotSend } from '../PostRobot';
+import { usePostRobotSend } from 'react-hook-post-robot';
 import { dataStore, setting } from '../../dataStore';
 import * as action from './action';
 import * as Components from './Formik/Forms';
