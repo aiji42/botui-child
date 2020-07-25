@@ -16,6 +16,7 @@
     "historykana": "^1.0.4",
     "libphonenumber-js": "^1.7.55",
     "moji": "^0.5.1",
+    "post-robot": "^10.0.37",
     "postmate": "^1.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

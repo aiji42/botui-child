@@ -1622,6 +1622,15 @@ batch@0.6.1:
   resolved "https://registry.yarnpkg.com/batch/-/batch-0.6.1.tgz#dc34314f4e679318093fc760272525f94bf25c16"
   integrity sha1-3DQxT05nkxgJP8dgJyUl+UvyXBY=
 
+belter@^1.0.41:
+  version "1.0.122"
+  resolved "https://registry.yarnpkg.com/belter/-/belter-1.0.122.tgz#353322c3380f8c2110a6f77e12e70bec7775fef4"
+  integrity sha512-Qp8IYOJn5/kBdWSW/HhxglarNc7MR2mGraFedX68oeHc24qO/ARAeAxOoPD5pFnE89tKbKzjl+GtcGxCj771HA==
+  dependencies:
+    cross-domain-safe-weakmap "^1.0.20"
+    cross-domain-utils "^2.0.10"
+    zalgo-promise "^1.0.28"
+
 bfj@^6.1.1:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/bfj/-/bfj-6.1.2.tgz#325c861a822bcb358a41c78a33b8e6e2086dde7f"
@@ -2365,6 +2374,20 @@ credit-card@^3.0.2:
   dependencies:
     lodash.merge "4.6.x"
     reach "1.x.x"
+
+cross-domain-safe-weakmap@^1.0.1, cross-domain-safe-weakmap@^1.0.20:
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/cross-domain-safe-weakmap/-/cross-domain-safe-weakmap-1.0.27.tgz#81a5eae012b3cfb7e7e5ca3d737a6c94c3499bab"
+  integrity sha512-f5etDzszteeGh99Dzd7o72FGwd8rLGzgEv50Vk0r8mLzPdQEzcb7Vmx3PfKWD4k66Hp8vN0BLPuBmmMs4UxseQ==
+  dependencies:
+    cross-domain-utils "^2.0.0"
+
+cross-domain-utils@^2.0.0, cross-domain-utils@^2.0.10:
+  version "2.0.33"
+  resolved "https://registry.yarnpkg.com/cross-domain-utils/-/cross-domain-utils-2.0.33.tgz#e4e136c8bbef007dffa2c01615e7628819d9ce19"
+  integrity sha512-qMcwxgwBcD0ag693vXuN9wiG2VmDZYDq2zcZEEWQPKWWOsHG847FKt2nztZNDO12qxw8E8+v21fcnv4Xbf2gsw==
+  dependencies:
+    zalgo-promise "^1.0.11"
 
 cross-spawn@^6.0.0, cross-spawn@^6.0.5:
   version "6.0.5"
@@ -5286,6 +5309,17 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
+post-robot@^10.0.37:
+  version "10.0.37"
+  resolved "https://registry.yarnpkg.com/post-robot/-/post-robot-10.0.37.tgz#f8c9c1bba7a42973c7d5df346ca274be3e83eb22"
+  integrity sha512-d1EvdFBDv95+I/MsG95OMmwTQXNGqOgvqy7XzZ7ywDehjyDeetwjAbrHc5FbfeZpgZezDpPfjjIB/hQKc80MEg==
+  dependencies:
+    belter "^1.0.41"
+    cross-domain-safe-weakmap "^1.0.1"
+    cross-domain-utils "^2.0.0"
+    universal-serialize "^1.0.4"
+    zalgo-promise "^1.0.3"
+
 postmate@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/postmate/-/postmate-1.5.2.tgz#d59a78b3780023c5d32225fd40633b364958bdb3"
@@ -6722,6 +6756,11 @@ unique-slug@^2.0.0:
   dependencies:
     imurmurhash "^0.1.4"
 
+universal-serialize@^1.0.4:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/universal-serialize/-/universal-serialize-1.0.8.tgz#93470f043a9ed30094104824c02d21f607b61e6a"
+  integrity sha512-AhC3D26asmMkxAadYjCUJh98AUV/Fpp9uStVz4OuigpaGqIwY+i95EWE392P+4ObOPFHw8TUk/GazyiSGDtxhA==
+
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
@@ -7212,3 +7251,8 @@ yup@^0.29.1:
     property-expr "^2.0.2"
     synchronous-promise "^2.0.10"
     toposort "^2.0.2"
+
+zalgo-promise@^1.0.11, zalgo-promise@^1.0.28, zalgo-promise@^1.0.3:
+  version "1.0.44"
+  resolved "https://registry.yarnpkg.com/zalgo-promise/-/zalgo-promise-1.0.44.tgz#10b6888def701abc0681ec760d73e2bfd2448ae2"
+  integrity sha512-CSQ1xh0vVwgrohObNdysPANonBV+3yl1Xy+qrtMWBvb/a0D/2OUNqb0GJvaAgGtP/gQawtiQAFil2bGSq8aoMA==

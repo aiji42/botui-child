@@ -1,10 +1,7 @@
-import React, { useEffect, useReducer } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { css } from '@emotion/core';
 import Message from './Message';
-import { messenger } from './reducer';
-import { conversationPrepare } from '../../conversation';
-
+import { useChatBot } from '../../hooks/ChatBot';
 
 const base = css`
   input, button, textarea, select {
@@ -20,13 +17,8 @@ const base = css`
   padding: 0px 15px 100px 15px;
 `;
 
-const ChatBot = ({ onReady, handshake }) => {
-  const [messages, dispatch] = useReducer(messenger, []);
-
-  useEffect(() => {
-    conversationPrepare(dispatch, handshake);
-    onReady();
-  }, []);
+const ChatBot = () => {
+  const messages = useChatBot();
 
   return (
     <div css={base}>
@@ -35,11 +27,6 @@ const ChatBot = ({ onReady, handshake }) => {
       ))}
     </div>
   );
-};
-
-ChatBot.propTypes = {
-  onReady: PropTypes.func.isRequired,
-  handshake: PropTypes.object.isRequired
 };
 
 export default ChatBot;
