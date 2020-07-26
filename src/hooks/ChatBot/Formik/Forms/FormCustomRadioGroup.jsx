@@ -57,9 +57,13 @@ const FormCustomRadioGroup = withFormik({
   }),
   validateOnMount: true,
   handleSubmit: (values, { props: { onSubmited, onUpdate }, setSubmitting }) => {
-    if (Object.keys(values).every(key => dataStore[key] != null)) onUpdate();
-    Object.keys(values).forEach(key => dataStore[key] = values[key]);
-    onSubmited();
+    if (Object.keys(values).every(key => dataStore[key] != null)) {
+      Object.keys(values).forEach(key => dataStore[key] = values[key]);
+      onUpdate();
+    } else {
+      Object.keys(values).forEach(key => dataStore[key] = values[key]);
+      onSubmited();
+    }
     setSubmitting(false);
   },
 })(form);
